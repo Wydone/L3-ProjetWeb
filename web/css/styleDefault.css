@@ -149,9 +149,9 @@
       text-transform: capitalize;
     }
      
-     ul,li,td {
+    ul,li,td {
      /*text-indent: 0.02em;*/
-     }
+    }
      
      li {
       margin-bottom: 0.02em;
@@ -198,7 +198,7 @@
     /*****************************************pour invité les menbre du CA a commenter... *********************************/ 
     #comment{
     background:red;
-    color:yellow
+    color:yellow ;
     width: 25%;
     border:1px solid black;
     border-radius:1em;
@@ -468,7 +468,7 @@
       margin-left: 9em;
       height:97%;
       border:1px solid #B7CF2F;
-      background-color:*#B7CF2F*/;
+      background-color:#B7CF2F;
     }
     .vignetteP{
         width: 32%;
