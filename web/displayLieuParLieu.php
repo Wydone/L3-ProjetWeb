@@ -6,16 +6,12 @@
        
     foreach($arrayData as $prog){
         $temp = $prog['Lieu']; 
-        //echo $temp; 
-
+    
         if( !(in_array($temp, $arrayLieu))){
             array_push($arrayLieu, $temp);
         }
     }
-    
-    //print_r($arrayLieu);
-
-    
+        
     foreach($arrayLieu as $Lieu){
         echo "<div class=\"Lieu\">"; 
         foreach($arrayDataLieu as $dataLieu){
