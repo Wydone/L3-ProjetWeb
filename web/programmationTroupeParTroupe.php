@@ -23,7 +23,7 @@
     <main>
         <div class="decalage">
            
-            <?php require_once('displayTroupeParTroupe.php');?>
+            <?php require_once('controleur/displayTroupeParTroupe.php');?>
 
         </div>
     </main>

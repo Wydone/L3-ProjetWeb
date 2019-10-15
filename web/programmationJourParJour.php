@@ -20,7 +20,7 @@
 
     <main>
         <div class="decalage">
-            <?php require_once('displayJourParJour.php');?>
+            <?php require_once('controleur/displayJourParJour.php');?>
         </div>
     </main>
 

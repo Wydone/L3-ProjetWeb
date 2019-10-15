@@ -36,7 +36,7 @@
 						<figcaption>Photocomposition:Edmée Deusy</figcaption>
 			</figure>
 
-            <?php require_once('displayLieuParLieu.php');?>
+            <?php require_once('controleur/displayLieuParLieu.php');?>
 
         </div>
     </main>
