@@ -31,8 +31,13 @@
         }
         $row++; 
     }
-    /*  
-        print_r($arrayData);
+
+    //print_r($arrayData);
+
+    /* 
+        //Test pour l'existance de du tableau    
+    
+      
         echo "".$arrayData[1]['Jour'] ;
         print_r($arrayData[1]); 
         // echo "".$arrayData[1]['jour'] ;

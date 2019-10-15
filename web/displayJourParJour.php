@@ -2,23 +2,30 @@
     require_once('parseCSVintoArray.php');
 
     $arrayJour = array(); 
-
-    echo "Jour : ".$arrayData[41]['jour']; 
-
+       
     foreach($arrayData as $prog){
-        $temp = $prog['jour']; 
-        echo $temp; 
-
+        $temp = $prog['Jour']; 
+        //echo $temp; 
 
         if( !(in_array($temp, $arrayJour))){
-            echo "test validated";
             array_push($arrayJour, $temp);
         }
     }
 
-    print_r($arrayJour);
+   // print_r($arrayJour);
+    foreach($arrayJour as $Jour){
+        
+        echo "<h2>".$Jour."</h2>" ; 
+        foreach($arrayData as $data) {
+           
+            if($data['Jour'] == $Jour){
+                echo "<p><horaire>".$data['Heure']."</horaire>, <lieu>".$data['Lieu']."</lieu> à <village>".$data['Village']."</village>, <titrespectacle>".$data['TitreSpectacle']."</titrespectacle>, <troupe>".$data['Compagnie']."</troupe></p>" ; 
+            }
 
-
+            //Affichage de l'auteur ????
+        }
+        echo "<br>";
+    }
 
     //header('Location: programmationJourParJour.php');
 

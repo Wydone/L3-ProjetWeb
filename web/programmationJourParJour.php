@@ -19,14 +19,9 @@
     </div>
 
     <main>
-
-    <?php require_once('displayJourParJour.php');
-
-        
-    ?>
-
-
-
+        <div class="decalage">
+            <?php require_once('displayJourParJour.php');?>
+        </div>
     </main>
 
     <footer>
