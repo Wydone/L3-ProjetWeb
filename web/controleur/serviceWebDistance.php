@@ -1,0 +1,71 @@
+<?php
+    
+    $arrayVille = array("Moulins","Monétay","Vichy","Monteignet","Veauce","Clermont-Ferrand");
+    $nbVilles = sizeof($arrayVille);
+    $arrayTemp = array() ; 
+
+    //Data 
+    $arrayVilleTempsDistance = array( 
+
+        "Moulins" => array(
+                        "Moulins" => array(0,0) ,  //This is an array Lenght in KM / Time in Minut
+                        "Monétay" => array(25, 30),
+                        "Vichy" => array(69, 70), 
+                        "Monteignet" => array(91, 65), 
+                        "Veauce" => array(91, 68), 
+                        "Clermont-Ferrand" => array(98, 97)
+                    ) ,
+        "Monétay" => array(
+                        "Moulins" => array(25, 30) ,  //This is an array Lenght in KM / Time in Minut
+                        "Monétay" => array(0, 0),
+                        "Vichy" => array(39, 45), 
+                        "Monteignet" => array(33, 36), 
+                        "Veauce" => array(45, 42), 
+                        "Clermont-Ferrand" => array(107, 65)
+                    ) ,
+        "Vichy" => array(
+                        "Moulins" => array(69, 70) ,  //This is an array Lenght in KM / Time in Minut
+                        "Monétay" => array(39, 45),
+                        "Vichy" => array(0, 0), 
+                        "Monteignet" => array(18, 26), 
+                        "Veauce" => array(54, 58), 
+                        "Clermont-Ferrand" => array(56, 65)
+                    ) ,
+        "Monteignet" => array(
+                        "Moulins" => array(91, 65) ,  //This is an array Lenght in KM / Time in Minut
+                        "Monétay" => array(33, 36),
+                        "Vichy" => array(18, 26), 
+                        "Monteignet" => array(0, 0), 
+                        "Veauce" => array(22, 26), 
+                        "Clermont-Ferrand" => array(50, 55)
+                    ),
+        "Veauce" => array(
+                        "Moulins" => array(91, 68) ,  //This is an array Lenght in KM / Time in Minut
+                        "Monétay" => array(45, 42),
+                        "Vichy" => array(54, 58), 
+                        "Monteignet" => array(22, 26), 
+                        "Veauce" => array(0, 0), 
+                        "Clermont-Ferrand" => array(54, 45)
+                    ),
+        "Clermont-Ferrand" => array(
+                        "Moulins" => array(98, 97) ,  //This is an array Lenght in KM / Time in Minut
+                        "Monétay" => array(107, 80),
+                        "Vichy" => array(56, 65), 
+                        "Monteignet" => array(50, 55), 
+                        "Veauce" => array(54, 45), 
+                        "Clermont-Ferrand" => array(0, 0)
+                    )
+    ); 
+
+    $param1 ;//= 'Vichy'; 
+    $param2 ;//= 'Moulins'; 
+    $horaire  ;//= 18 ; 
+
+    $distance = $arrayVilleTempsDistance[$param1][$param2][0];
+    $time = $arrayVilleTempsDistance[$param1][$param2][1];
+
+    if(17<=$horaire && $horaire<=19) {
+        $time = $time * 1.1 ; 
+    }    
+    echo "Distance : ".$distance." et time : ".$time;
+?>
