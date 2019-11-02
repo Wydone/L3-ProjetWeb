@@ -15,9 +15,30 @@
         <h1>Festival Théâtres de Bourdon</h1>
     </div>
 
-    <div class="menu">
-
-    </div>
+    <nav class="nav-top">
+		<div class="menu">
+			<ul>
+				<li>
+					<a href="accueil.php">Accueil</a>
+				</li>
+				<li>
+					<a href="programmationJourParJour.php">Jour par Jour</a>
+				</li>
+				<li>
+					<a href="programmationLieuParLieu.php">Lieu par Lieu</a>
+				</li>
+				<li>
+					<a href="programmationTroupeParTroupe.php">Troupe par Troupe</a>
+				</li>
+				<li>
+					<a href="quiSommesNous.php">Qui sommes nous</a>
+				</li>
+				<li>
+					<a href="tarifs.php">Tarif</a>
+				</li>
+	    	</ul>
+		</div>
+	</nav>
 
     <main>
         <div class="decalage">
