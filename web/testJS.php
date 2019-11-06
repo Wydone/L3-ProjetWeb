@@ -12,36 +12,7 @@
 
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
-<body onload="">
-    <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon : Réservation de billets</h1>
-    </div>
-
-    <nav class="nav-top">
-		<div class="menu">
-			<ul>
-				<li>
-					<a href="accueil.php">Accueil</a>
-				</li>
-				<li>
-					<a href="programmationJourParJour.php">Jour par Jour</a>
-				</li>
-				<li>
-					<a href="programmationLieuParLieu.php">Lieu par Lieu</a>
-				</li>
-				<li>
-					<a href="programmationTroupeParTroupe.php">Troupe par Troupe</a>
-				</li>
-				<li>
-					<a href="quiSommesNous.php">Qui sommes nous</a>
-				</li>
-				<li>
-					<a href="tarifs.php">Tarif</a>
-				</li>
-	    	</ul>
-		</div>
-	</nav>
-
+<body onload="createURL()">
     <main>
         <div class="decalage">
             <form name="reservationBillet" action="addReservationIntoFile.php" method="POST">
@@ -60,5 +31,5 @@
 
     </footer>
 </body>
-	<script src="scriptReservation.js"></script>
+	<script src="js/scriptReservation.js"></script>
 </html>
