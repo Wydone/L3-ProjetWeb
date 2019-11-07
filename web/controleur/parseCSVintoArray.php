@@ -1,23 +1,16 @@
 <?php
     //This controleur is used for parse the CSV file into an multidimensional array
 
-    //echo "This is a test for php";
-    
-
-
     $row = 1; 
-    $file = fopen("data/ResultatsFestival.csv", "r"); 
-
+    $file = fopen("../data/ResultatsFestival.csv", "r"); 
 
     $arrayInfoCSV = array()  ;  //contain the head of the CSV file
-    $arrayData = array() ; // The csv data convert into a multidimensional array
+    $arrayData = array() ; // The csv data convert into a multidiùensional array
     
      // temp array used to create arrayData
     $arrayDataTemp = array();  
     $Jour = "Jour";
-
-  
-
+    
     while(($line = fgetcsv($file, 1024, ",")) !== FALSE){
         if($row == 1){
           
@@ -38,7 +31,6 @@
         }
         $row++; 
     }
-    //echo "Test : ".$arrayData[0]['Jour'] ;
 
     //print_r($arrayData);
 
@@ -58,6 +50,7 @@
         }
 
     */
-   
+    //echo "".$arrayData[0]['Jour'] ;
+
 
 ?>

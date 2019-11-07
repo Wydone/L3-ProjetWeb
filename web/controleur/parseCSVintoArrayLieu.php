@@ -2,7 +2,7 @@
     //This controleur is used for parse the CSV file into an multidimensional array
 
     $row = 1; 
-    $file = fopen("data/LieuParLieu.csv", "r"); 
+    $file = fopen("../data/LieuParLieu.csv", "r"); 
 
     $arrayInfoCSVLieu = array()  ;  //contain the head of the CSV file
     $arrayDataLieu = array() ; // The csv data convert into a multidiùensional array
