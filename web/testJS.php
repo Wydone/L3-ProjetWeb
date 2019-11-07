@@ -12,7 +12,7 @@
 
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
-<body onload="createURL()">
+<body onload="loadList()">
     <main>
         <div class="decalage">
             <form name="reservationBillet" action="addReservationIntoFile.php" method="POST">

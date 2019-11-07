@@ -5,7 +5,6 @@
        
     foreach($arrayData as $prog){
         $temp = $prog['Jour']; 
-        //echo $temp; 
 
         if( !(in_array($temp, $arrayJour))){
             array_push($arrayJour, $temp);
