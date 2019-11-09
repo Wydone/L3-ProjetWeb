@@ -15,14 +15,7 @@
 <body onload="loadList()">
     <main>
         <div class="decalage">
-            <form name="reservationBillet" action="addReservationIntoFile.php" method="POST">
-
-                <h3>Choix du spectacle</h3>
-				
-
-                
-
-                <input type="submit" value="Valider" />
+            <form id="formReservation" name="reservationBillet" action="addReservationIntoFile.php" method="POST">
             </form>
         </div>
     </main>

@@ -1,15 +1,33 @@
 
+// Variable global 
+
+
 function loadList(){
-    var dataARRAY
+    
     $.get("controleur/parseCSVintoArrayJSON.php", function(data){
         var dataARRAY = jQuery.parseJSON(data);
-       
        
         var arrayAllDate =  new Array; 
         var arrayAllHoraire =  new Array;
         var arrayAllTitre =  new Array;
         var arrayAllLieu =  new Array;
         var arrayAllVillage =  new Array;
+
+        /* Ajout des tags */
+
+        var tagSelectionTitre = "Choisissez un titre"; 
+        var tagSelectionDate = "Choisissez une date"; 
+        var tagSelectionHoraire = "Choisissez un horaire"; 
+        var tagSelectionLieu = "Choisissez un lieu"; 
+        var tagSelectionVillage = "Choisissez un village"; 
+
+        arrayAllDate.push(tagSelectionDate); 
+        arrayAllHoraire.push(tagSelectionHoraire);
+        arrayAllTitre.push(tagSelectionTitre); 
+        arrayAllLieu.push(tagSelectionLieu); 
+        arrayAllVillage.push(tagSelectionVillage); 
+
+
         //console.log(dataARRAY[1]['Jour']);
         
         dataARRAY.forEach(element => {
@@ -39,14 +57,78 @@ function loadList(){
                 arrayAllVillage.push(tempVillage); 
             }
         });
-        console.log(dataARRAY);
+       /* console.log(dataARRAY);
         console.log(arrayAllDate); 
         console.log(arrayAllHoraire); 
         console.log(arrayAllTitre); 
         console.log(arrayAllLieu); 
-        console.log(arrayAllVillage); 
+        console.log(arrayAllVillage);   */
+
+        createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage); 
+
     });
-
-  
-
 }
+
+function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage ){
+    /*console.log(dataARRAY);
+    console.log(arrayAllDate); 
+    console.log(arrayAllHoraire); 
+    console.log(arrayAllTitre); 
+    console.log(arrayAllLieu); 
+    console.log(arrayAllVillage);
+    */
+
+    /* Creation des listes */
+
+    //document.write( "<form name=\"reservationBillet\" action=\"addReservationIntoFile.php\" method=\"POST\">" );
+    
+    var allArray =[arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage]; 
+    var allArrayName = ["arrayAllDateOption", "arrayAllHoraireOption", "arrayAllTitreOption", "arrayAllLieuOption", "arrayAllVillageOption"]; 
+
+
+    /*
+    for (let i = 0; i < allArray.length; i++){
+
+        document.write("<SELECT NAME='"+allArrayName[i]+"' onchange=\"onSelectedOption(this);\">");
+
+        var length = allArray[i].length ; 
+
+        for(let j = 0; j<length; j++){
+            document.write("<OPTION>" +allArray[i][j]); //value ??
+        }
+        document.write('</SELECT>');
+    }
+    document.write('</form>');
+   
+    */
+   var oForm = document.getElementById("formReservation"); 
+    for (let i = 0; i < allArray.length; i++){
+        console.log('test');
+
+        linebreak = document.createElement("br");
+        oForm.prepend(linebreak);
+        
+        var newSelect = document.createElement("SELECT"); 
+        newSelect.name = allArrayName[i] ; 
+        
+        var length = allArray[i].length ;
+        
+        for(let j = 0; j < length; j++){
+            console.log(allArray[i][j]);
+
+            var newOption = document.createElement("option"); 
+            newOption.value = allArray[i][j];
+            newOption.text = allArray[i][j];  
+            newSelect.add(newOption); 
+        }
+        oForm.prepend(newSelect);
+    }
+
+    //<input type="submit" value="Valider" />
+    
+    var oSubmit = document.createElement("input"); 
+    oSubmit.type = "submit"; 
+    oSubmit.value = "Valider";
+    oForm.appendChild(oSubmit);
+}
+
