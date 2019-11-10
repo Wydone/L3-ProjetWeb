@@ -11,6 +11,7 @@
     <title>Theatres de Bourdon</title>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="js/scriptReservation.js"></script>
 </head>
 <body onload="loadList()">
     <main>
@@ -24,5 +25,5 @@
 
     </footer>
 </body>
-	<script src="js/scriptReservation.js"></script>
+	
 </html>

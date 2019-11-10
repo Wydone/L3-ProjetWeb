@@ -1,6 +1,4 @@
-
-// Variable global 
-
+var allArrayName = ["arrayAllDateOption", "arrayAllHoraireOption", "arrayAllTitreOption", "arrayAllLieuOption", "arrayAllVillageOption"]; 
 
 function loadList(){
     
@@ -14,7 +12,6 @@ function loadList(){
         var arrayAllVillage =  new Array;
 
         /* Ajout des tags */
-
         var tagSelectionTitre = "Choisissez un titre"; 
         var tagSelectionDate = "Choisissez une date"; 
         var tagSelectionHoraire = "Choisissez un horaire"; 
@@ -57,17 +54,20 @@ function loadList(){
                 arrayAllVillage.push(tempVillage); 
             }
         });
-       /* console.log(dataARRAY);
-        console.log(arrayAllDate); 
+
+        createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage);
+      //  console.log(dataARRAY);
+      //  console.log(dataARRAY['Jour']);
+      /*  console.log(arrayAllDate); 
         console.log(arrayAllHoraire); 
         console.log(arrayAllTitre); 
         console.log(arrayAllLieu); 
         console.log(arrayAllVillage);   */
-
-        createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage); 
+        
 
     });
 }
+
 
 function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage ){
     /*console.log(dataARRAY);
@@ -79,56 +79,47 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
     */
 
     /* Creation des listes */
-
-    //document.write( "<form name=\"reservationBillet\" action=\"addReservationIntoFile.php\" method=\"POST\">" );
-    
     var allArray =[arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage]; 
-    var allArrayName = ["arrayAllDateOption", "arrayAllHoraireOption", "arrayAllTitreOption", "arrayAllLieuOption", "arrayAllVillageOption"]; 
-
-
-    /*
+   // var allArrayName = ["arrayAllDateOption", "arrayAllHoraireOption", "arrayAllTitreOption", "arrayAllLieuOption", "arrayAllVillageOption"]; 
+    
+    var oForm = document.getElementById("formReservation"); 
+    
     for (let i = 0; i < allArray.length; i++){
-
-        document.write("<SELECT NAME='"+allArrayName[i]+"' onchange=\"onSelectedOption(this);\">");
-
-        var length = allArray[i].length ; 
-
-        for(let j = 0; j<length; j++){
-            document.write("<OPTION>" +allArray[i][j]); //value ??
-        }
-        document.write('</SELECT>');
-    }
-    document.write('</form>');
-   
-    */
-   var oForm = document.getElementById("formReservation"); 
-    for (let i = 0; i < allArray.length; i++){
-        console.log('test');
+       //console.log('test');
 
         linebreak = document.createElement("br");
         oForm.prepend(linebreak);
         
         var newSelect = document.createElement("SELECT"); 
+        newSelect.id =  i + "_" +allArrayName[i]; 
         newSelect.name = allArrayName[i] ; 
-        
+        newSelect.setAttribute("onchange", "Choix(this)");
+        // newSelect.onchange = Choix(this.value);   -> cette definition ne fonctionne pas !! Il faut utiliser celle ci-dessus
         var length = allArray[i].length ;
         
         for(let j = 0; j < length; j++){
-            console.log(allArray[i][j]);
+            //console.log(allArray[i][j]);
 
             var newOption = document.createElement("option"); 
             newOption.value = allArray[i][j];
-            newOption.text = allArray[i][j];  
+            newOption.text = allArray[i][j];
             newSelect.add(newOption); 
         }
         oForm.prepend(newSelect);
     }
 
-    //<input type="submit" value="Valider" />
-    
     var oSubmit = document.createElement("input"); 
     oSubmit.type = "submit"; 
     oSubmit.value = "Valider";
     oForm.appendChild(oSubmit);
 }
 
+function Choix(myOption) {
+    console.log("This is a test");
+   // console.log(document.getElementById(myOption.name).selectedIndex);
+    console.log(myOption.value);
+    console.log(myOption.id);
+
+
+
+}
