@@ -57,9 +57,9 @@
                     )
     ); 
 
-    $param1 ;//= 'Vichy'; 
-    $param2 ;//= 'Moulins'; 
-    $horaire  ;//= 18 ; 
+    $param1 = $_GET['param1'];
+    $param2 = $_GET['param2'];
+    $horaire = $_GET['horaire'];
 
     $distance = $arrayVilleTempsDistance[$param1][$param2][0];
     $time = $arrayVilleTempsDistance[$param1][$param2][1];
@@ -67,5 +67,5 @@
     if(17<=$horaire && $horaire<=19) {
         $time = $time * 1.1 ; 
     }    
-    echo "Distance : ".$distance." et time : ".$time;
+    echo $distance.",".$time;
 ?>
