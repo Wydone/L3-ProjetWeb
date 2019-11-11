@@ -285,7 +285,7 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
                 console.log(infosCheckingSousForm)
                 checkDistance(arrayAllHoraire[1], arrayAllVillage[1]);
             }*/
-
+            console.log(selectedOption + " nbSous formulaire = "+ SousFormulaire);
             //Appel createForm afin de reload les option du SELECT cpt
             createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt, nbForm); 
         });
