@@ -3,9 +3,28 @@
 var allArrayName =["arrayAllTitreOption", "arrayAllDateOption", "arrayAllHoraireOption","arrayAllVillageOption" , "arrayAllLieuOption"]; 
 var selectedOption = [Titre, Jour, Heure, Village, Lieu];
 var Titre, Jour, Heure, Village, Lieu;
+var allLabel = ["Titre", "Date", "Horaire", "Village", "Lieu"];
+
+var allTarifsReservations = ["Plein Tarif", "Tarif Réduit", "Gratuit (enfant)"]
+var allTarifsReservationsValue = ["P", "R", "O"]
+
+var SousFormulaire = 0;
 
 
-function loadList(){
+function main() {
+    var btnNewReservation = document.getElementById("btnNewReservation"); 
+    btnNewReservation.addEventListener('click', function(){
+        console.log("Click sur +")
+        loadList(SousFormulaire);
+    }); 
+    loadList(0); 
+
+}
+
+
+function loadList(nbForm){
+
+    console.log("Appel de load list")
     
     $.get("controleur/parseCSVintoArrayJSON.php", function(data){
         var dataARRAY = jQuery.parseJSON(data);
@@ -59,38 +78,42 @@ function loadList(){
                 arrayAllVillage.push(tempVillage); 
             }
         });
-
-        createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, 0);
-      //  console.log(dataARRAY);
-      //  console.log(dataARRAY['Jour']);
-      /*  console.log(arrayAllDate); 
-        console.log(arrayAllHoraire); 
-        console.log(arrayAllTitre); 
-        console.log(arrayAllLieu); 
-        console.log(arrayAllVillage);   */
-        
-
+       
+        createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, 0, nbForm);
     });
 }
 
 
-function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt){
-        console.log("Vazleur du compteur : " + cpt);
-       
+function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt, nbForm){
+        //console.log("Valeur du compteur : " + cpt);
+        //console.log("Appel de createForm ")
+
+        
        
         /* Creation des listes */
         
         var allArray =[arrayAllTitre, arrayAllDate, arrayAllHoraire,arrayAllVillage , arrayAllLieu]; 
 
         var oForm = document.getElementById("formReservation"); 
+
+        var oSubmit = document.getElementById("inputSubmitFormReservation"); 
+
         
+
+        
+
         /* Creation de mes 5 liste déroulante */
 
         if (cpt == 0) {
+            var newlabel = document.createElement("Label");
+            newlabel.setAttribute("for","id_"+allArrayName[0]+nbForm);
+            newlabel.innerHTML = allLabel[0]+" : ";
+            oForm.insertBefore(newlabel,oSubmit); 
+
             var newSelect = document.createElement("SELECT"); 
-            newSelect.id =  "id_"+allArrayName[0]; 
+            newSelect.id =  "id_"+allArrayName[0]+nbForm; 
             newSelect.name = allArrayName[0] ; 
-            newSelect.setAttribute("onchange", "relaodList(this)");
+            newSelect.setAttribute("onchange", "relaodList(this,"+(nbForm)+")");
 
             for(let i = 0; i < arrayAllTitre.length ; i++){
                 var newOption = document.createElement("option"); 
@@ -98,30 +121,66 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
                 newOption.text = allArray[0][i];
                 newSelect.add(newOption); 
             }
-            oForm.prepend(newSelect);
+            oForm.insertBefore(newSelect,oSubmit);
+
             linebreak = document.createElement("br");
-            oForm.prepend(linebreak);
+            oForm.insertBefore(linebreak, oSubmit);
 
             for(let j = 1 ; j <allArray.length; j++ ){
+                var newlabel = document.createElement("Label");
+                newlabel.setAttribute("for","id_"+allArrayName[j]+nbForm);
+                newlabel.innerHTML = allLabel[j]+" : ";
+                oForm.insertBefore(newlabel,oSubmit); 
+
+
                 var newSelect = document.createElement("SELECT"); 
-                newSelect.id =  "id_"+allArrayName[j]; 
+                newSelect.id =  "id_"+allArrayName[j]+nbForm; 
                 newSelect.name = allArrayName[0] ; 
-                newSelect.setAttribute("onchange", "relaodList(this)");
-      
-               /* var newOption = document.createElement("option"); 
-                newOption.value = allArray[j][0];
-                newOption.text = allArray[j][0];
-                newSelect.add(newOption); */
-                
-                oForm.prepend(newSelect);
-               
+                newSelect.setAttribute("onchange", "relaodList(this,"+(nbForm)+")");
+                  
+                oForm.insertBefore(newSelect, oSubmit);
+                linebreak = document.createElement("br");
+                oForm.insertBefore(linebreak, oSubmit);
             }
-           
-        
+
+
+        /* Ajout btn pour choisir le type de billets et le nombre de place */
+            linebreak = document.createElement("br");
+            oForm.insertBefore(linebreak, oSubmit);
+            
+            titreTarif = document.createElement("h3")
+            titreTarif.innerHTML = "Nombre de places : "
+            oForm.insertBefore(titreTarif, oSubmit);
+            for(let i = 0; i < allTarifsReservations.length; i++){
+
+                var newlabel = document.createElement("Label");
+                newlabel.setAttribute("for",allTarifsReservationsValue[i]+nbForm);
+                newlabel.innerHTML =allTarifsReservations[i]+" : ";
+                oForm.insertBefore(newlabel, oSubmit); 
+
+                var nbPlaceTarifInput = document.createElement('input');
+                nbPlaceTarifInput.setAttribute('type', 'number');
+                nbPlaceTarifInput.setAttribute('name', allTarifsReservationsValue[i]+nbForm);
+                nbPlaceTarifInput.setAttribute('min', 0);
+                nbPlaceTarifInput.setAttribute('max', 20); // ATTENTION QUESTION A POSER !!!
+
+                oForm.insertBefore(nbPlaceTarifInput, oSubmit);
+                linebreak = document.createElement("br");
+                oForm.insertBefore(linebreak, oSubmit);
+            }
+
+            
+            oForm.insertBefore(btnNewReservation, oSubmit)
+            linebreak = document.createElement("br");
+            oForm.insertBefore(linebreak, oSubmit);
+            linebreak = document.createElement("br");
+            oForm.insertBefore(linebreak, oSubmit);
+
         /* Si je callback la fonction create alors je n'est pas créer les selects mais simplement remplir les champs "option" de chaque select */
         }else {
             if(cpt < allArray.length) {
-                var newSelect =  document.getElementById( "id_"+allArrayName[cpt]); 
+                var newSelect =  document.getElementById( "id_"+allArrayName[cpt]+nbForm); 
+                console.log("id_"+allArrayName[cpt]+nbForm)
                 $(newSelect).empty();
     
                 for(let j = 0; j < allArray[cpt].length; j++) {
@@ -131,12 +190,17 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
                     newSelect.add(newOption);
                 }
             }
-        }   
+        }
+            
+        /* Ajout d'un btn + pour reserver une/des autre(s) places de spectacle */
+
+        SousFormulaire += 1;
+
 }
 
 
-function relaodList(myOption){  //Ne reloadera pas les Titres de spectacles
- 
+function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectacles
+   
     var arrayDefaultValue = ["Choisissez un titre",  "Choisissez une date", "Choisissez un lieu", "Choisissez un village"]; 
 
     if(! arrayDefaultValue.includes(myOption.value)){
@@ -208,12 +272,18 @@ function relaodList(myOption){  //Ne reloadera pas les Titres de spectacles
                     }
                 }
     
-            }); 
+            });
 
-            createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt);
+            checkDistance(); //Fonction qui checkera le service web
+
+            createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt, nbForm);
         });
     }
 
     
    
+}
+
+function checkDistance() {
+    
 }

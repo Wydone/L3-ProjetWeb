@@ -13,10 +13,14 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="js/scriptReservation.js"></script>
 </head>
-<body onload="loadList()">
+<body onload="main()">
     <main>
-        <div class="decalage">
+        <div class="decalage">  
+           
             <form id="formReservation" name="reservationBillet" action="addReservationIntoFile.php" method="POST">
+                <h3>Choix du spectacle</h3>
+                <button id="btnNewReservation" type="button">+</button>
+                <input id ="inputSubmitFormReservation" type="submit" value="Valider la reservation">
             </form>
         </div>
     </main>
