@@ -48,3 +48,7 @@
 .menu ul li a:hover {
     background-color: #077bd2 ;
 }   
+
+.msgErrorDistanceTimeForm {
+    color: red;
+}

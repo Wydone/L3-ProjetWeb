@@ -5,6 +5,8 @@ var sousFormulaireSelectedOption = new Array;
 var selectedOption = new Array;  // [Titre ="", Jour="", Heure="", Village="", Lieu=""]; //Array conenant les choix de l'utilisateur dans les différents select
 
 var allLabel = ["Titre", "Date", "Horaire", "Village", "Lieu"]; //Tableau des labels
+var allLabelName = [];
+
 
 var allTarifsReservations = ["Plein Tarif", "Tarif Réduit", "Gratuit (enfant)"] // Tableau des != tarifs
 var allTarifsReservationsValue = ["P", "R", "O"] //Le symbole des != tarifs
@@ -310,30 +312,30 @@ function checkDistance(nbForm) {
     
     console.log("FONCTION CHECKING NEW APPEL")
    
-    for(let i=0; i< sousFormulaireSelectedOption.length; i++ ){
+   // for(let i=0; i< sousFormulaireSelectedOption.length; i++ ){
        // console.log("first for")
+        var TitreSource = sousFormulaireSelectedOption[nbForm]['Titre'];
+       
+        var JourSource = sousFormulaireSelectedOption[nbForm]['Jour']; 
+        var VillageSource = sousFormulaireSelectedOption[nbForm]['Village']; 
 
-        var JourSource = sousFormulaireSelectedOption[i]['Jour']; 
-        var VillageSource = sousFormulaireSelectedOption[i]['Village']; 
-
-        var tmp = sousFormulaireSelectedOption[i]['Heure']; 
+        var tmp = sousFormulaireSelectedOption[nbForm]['Heure']; 
         var tmpHeureSource = tmp.split('h'); 
         var HeureSource = tmpHeureSource[0] // On ne récupère que l'heure et non les minutes pour le moment 
 
-
         for(let j=0; j<sousFormulaireSelectedOption.length; j++){
             //console.log("second for")
-            if(j !=i ){
+            if(j != nbForm){
                 var JourCible  = sousFormulaireSelectedOption[j]['Jour']; 
                 var tmp = sousFormulaireSelectedOption[j]['Heure']; 
                 var tmpHeureCible = tmp.split('h');
                 var HeureCible  = tmpHeureCible[0]; // ICI on ne recupère que l'heure et non les minutes pour les envoyer au service web
                 
                 var VillageCible = sousFormulaireSelectedOption[j]['Village']; 
+                var TitreCible = sousFormulaireSelectedOption[j]['Titre'];
 
-                if(JourCible == JourSource){
-                    //var Horaire = Math.min(HeureCible,HeureSource) ;
-
+                if(JourCible == JourSource && TitreCible != TitreSource){
+                   
                     if(HeureCible < HeureSource){
                         Horaire = HeureCible;
                         cible = true; 
@@ -342,8 +344,6 @@ function checkDistance(nbForm) {
                         cible = false;
                     }
 
-
-                    console.log("valeur des paramètres : "+VillageCible+" , "+VillageSource+" , "+Horaire)
                     $.ajax({
                         url: "controleur/serviceWebDistance.php",
                         type: "GET",
@@ -395,45 +395,34 @@ function checkDistance(nbForm) {
                             //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
                             if(cible){ //Si le spectacle qui commence en 1er est la cible
                                 if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
-                                    console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
+                                    //console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
+                                    
+                                    var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
+                                    var spectacleCible = document.getElementById("id_arrayAllTitreOption-"+j);
+                                    var spectacleSource = document.getElementById("id_arrayAllTitreOption-"+nbForm)
+
+                                    var msgError = document.createElement("p");
+                                    msgError.classList = "msgErrorDistanceTimeForm";
+                                    msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
+                                    oForm.insertBefore(msgError, spectacleCible)
+                                        
                                 }
                             }else{ //Si le spectacle qui commence en 1er est la source
                                 if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
-                                    console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
+                                    //console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
+                                    var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
+                                    var spectacleCible = document.getElementById("id_arrayAllTitreOption-"+j);
+                                    var spectacleSource = document.getElementById("id_arrayAllTitreOption-"+nbForm)
+
+                                    var msgError = document.createElement("p");
+                                    msgError.classList = "msgErrorDistanceTimeForm"
+                                    msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
+                                    oForm.insertBefore(msgError, spectacleCible)
                                 }
                             }
-                        } 
-
-                       
-                    });
-                    //console.log("Distance : "+distance+ ", et time : "+time)
-                }
-            }
-        }
-
-    }
-   
-  /*  var couple = [ville, heure]; 
-
-            var param1  = element[0]; 
-            var param2 = couple[0]; 
-            var horaire = heure; 
-
-            console.log("param1 : "+ param1 + " , param2 : "+ param2 + "horaire : " + horaire)
-
-    
-        $.ajax({
-            url: "controleur/serviceWebDistance.php",
-            type: "GET",
-            data: {param1 : "Veauce" , param2 : "Moulins", horaire : "18"},
-            success: function(result){
-                var tabRes = result.split(','); 
-                var distance = tabRes[0]; 
-                var time = tabRes[1]; 
-            } 
-        });
-    */
-
-
-   
+                        } // fin de success
+                    }); // fin de ajax
+                }// fin de if
+            }//fin de if
+        }//fin de 2eme for
 }
