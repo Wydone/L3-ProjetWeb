@@ -5,7 +5,7 @@ var sousFormulaireSelectedOption = new Array;
 var selectedOption = new Array;  // [Titre ="", Jour="", Heure="", Village="", Lieu=""]; //Array conenant les choix de l'utilisateur dans les différents select
 
 var allLabel = ["Titre", "Date", "Horaire", "Village", "Lieu"]; //Tableau des labels
-var allLabelName = [];
+var allLabelName = ["labelTitreOption", "labelDateOption","labelHoraireOption", "labelVillageOption", "labelLieuOption"];
 
 
 var allTarifsReservations = ["Plein Tarif", "Tarif Réduit", "Gratuit (enfant)"] // Tableau des != tarifs
@@ -116,6 +116,7 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
             var newlabel = document.createElement("Label");
             newlabel.setAttribute("for","id_"+allSelectName[0]+"-"+nbForm);
             newlabel.innerHTML = allLabel[0]+" : ";
+            newlabel.id = "id_"+allLabelName[0]+"-"+nbForm; 
             oForm.insertBefore(newlabel,oSubmit); 
 
             //Creation du select "titre" et de ses options
@@ -140,6 +141,7 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
                 var newlabel = document.createElement("Label");
                 newlabel.setAttribute("for","id_"+allSelectName[j]+"-"+nbForm);
                 newlabel.innerHTML = allLabel[j]+" : ";
+                newlabel.id = "id_"+allLabelName[0]+"-"+nbForm;
                 oForm.insertBefore(newlabel,oSubmit); 
 
 
@@ -398,8 +400,8 @@ function checkDistance(nbForm) {
                                     //console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
                                     
                                     var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
-                                    var spectacleCible = document.getElementById("id_arrayAllTitreOption-"+j);
-                                    var spectacleSource = document.getElementById("id_arrayAllTitreOption-"+nbForm)
+                                    var spectacleCible = document.getElementById("id_"+allLabelName[0]+"-"+j);
+                                    var spectacleSource = document.getElementById("id_"+allLabelName[0]+"-"+nbForm)
 
                                     var msgError = document.createElement("p");
                                     msgError.classList = "msgErrorDistanceTimeForm";
@@ -411,8 +413,8 @@ function checkDistance(nbForm) {
                                 if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
                                     //console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
                                     var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
-                                    var spectacleCible = document.getElementById("id_arrayAllTitreOption-"+j);
-                                    var spectacleSource = document.getElementById("id_arrayAllTitreOption-"+nbForm)
+                                    var spectacleCible = document.getElementById("id_"+allLabelName[0]+"-"+j);
+                                    var spectacleSource = document.getElementById("id_"+allLabelName[0]+"-"+nbForm)
 
                                     var msgError = document.createElement("p");
                                     msgError.classList = "msgErrorDistanceTimeForm"
