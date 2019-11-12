@@ -57,9 +57,11 @@
                     )
     ); 
 
-    $param1 = $_GET['param1'];
-    $param2 = $_GET['param2'];
+    $param1 = $_GET['VillageSource'];
+    $param2 = $_GET['VillageCible'];
     $horaire = $_GET['horaire'];
+
+    //echo $param1.' , '.$param2.' , '.$horaire; 
 
     $distance = $arrayVilleTempsDistance[$param1][$param2][0];
     $time = $arrayVilleTempsDistance[$param1][$param2][1];

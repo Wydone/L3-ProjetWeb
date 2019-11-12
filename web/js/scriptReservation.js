@@ -13,8 +13,8 @@ var SousFormulaire = 0; //Variables désigant dans quel sous formulaire on ce tr
 
 var arrayDefaultValue = ["Choisissez un titre", "Choisissez une date", "Choisissez un lieu", "Choisissez un village", "Choisissez un horaire"]; 
 
-
-
+var time, distance; //Variable utilisé dans le checking des distances entre différents spectacles
+var cible; //boolean pour determiner qui de cible ou source est le plus faible
 
 // FONCTION MAIN EXECUTE AU CHARGEMENT DE LA PAGE WEB
 function main() {
@@ -296,7 +296,7 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
             if(checking && (sousFormulaireSelectedOption[nbForm]['Titre'] != arrayDefaultValue[0]) && (sousFormulaireSelectedOption[nbForm]['Jour'] != arrayDefaultValue[1]) && (sousFormulaireSelectedOption[nbForm]['Heure'] != arrayDefaultValue[4]) && (sousFormulaireSelectedOption[nbForm]['Village'] != arrayDefaultValue[3]) ){
                 console.log("APPEL DU CHEKING")
                 console.log("numero de sous formulaire : "+nbForm)
-                //checkDistance(nbForm);
+                checkDistance(nbForm);
             }
           
             createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt, nbForm); 
@@ -307,13 +307,113 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
 
 //Fonction pour checker si l'utilisateur peut ce rendre à tout les spectacle qu'il a reservé, le check est appelé si a 2 != spectacle à la même Date et dans des ville != 
 function checkDistance(nbForm) {
+    
     console.log("FONCTION CHECKING NEW APPEL")
    
     for(let i=0; i< sousFormulaireSelectedOption.length; i++ ){
-        
+       // console.log("first for")
+
+        var JourSource = sousFormulaireSelectedOption[i]['Jour']; 
+        var VillageSource = sousFormulaireSelectedOption[i]['Village']; 
+
+        var tmp = sousFormulaireSelectedOption[i]['Heure']; 
+        var tmpHeureSource = tmp.split('h'); 
+        var HeureSource = tmpHeureSource[0] // On ne récupère que l'heure et non les minutes pour le moment 
+
+
+        for(let j=0; j<sousFormulaireSelectedOption.length; j++){
+            //console.log("second for")
+            if(j !=i){
+                var JourCible  = sousFormulaireSelectedOption[j]['Jour']; 
+                var tmp = sousFormulaireSelectedOption[j]['Heure']; 
+                var tmpHeureCible = tmp.split('h');
+                var HeureCible  = tmpHeureCible[0]; // ICI on ne recupère que l'heure et non les minutes pour les envoyer au service web
+                
+                var VillageCible = sousFormulaireSelectedOption[j]['Village']; 
+
+                if(JourCible == JourSource){
+                    //var Horaire = Math.min(HeureCible,HeureSource) ;
+
+                    if(HeureCible < HeureSource){
+                        Horaire = HeureCible;
+                        cible = true; 
+                    }else {
+                        Horaire = HeureSource; 
+                        cible = false;
+                    }
+
+
+                    console.log("valeur des paramètres : "+VillageCible+" , "+VillageSource+" , "+Horaire)
+                    $.ajax({
+                        url: "controleur/serviceWebDistance.php",
+                        type: "GET",
+                        data: {VillageSource ,VillageCible, Horaire},
+                        success: function(result){
+                            var tabRes = result.split(','); 
+                            console.log(tabRes);
+                            distance = tabRes[0]; 
+                            time = tabRes[1]; 
+
+                            //console.log(distance + ", "+ time)
+                            //time = Math.trunc((time/60)) ;
+                            nbHeure = parseInt(Math.trunc((time/60))); 
+                            nbMinute = parseInt(time%60);
+                            console.log("nb Heure : "+nbHeure + " , nbMinute : "+nbMinute);
+                            var totalMinute = 0;
+                            var totalHeure = 0;
+                            var nbHeureSup = 0; 
+                            
+                            console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible"+tmpHeureCible[0])
+                            console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source"+tmpHeureSource[0])
+                            
+
+                            if(cible){
+
+                                totalMinute = parseInt(tmpHeureCible[1]) + nbMinute
+
+                                if(totalMinute>=60){
+
+                                    nbHeureSup = Math.trunc(totalMinute/60);
+                                    totalMinute = time%60; 
+                                }
+                                totalHeure = nbHeureSup + nbHeure + parseInt(tmpHeureCible[0]);
+
+                            }else{
+
+                                totalMinute = parseInt(tmpHeureSource[1]) + nbMinute
+
+                                if(totalMinute>=60){
+
+                                    nbHeureSup = Math.trunc(totalMinute/60);
+                                    totalMinute = time%60; 
+                                }
+                                totalHeure = nbHeureSup + nbHeure + parseInt(tmpHeureSource[0]);
+                            }
+                            console.log("Total Heure : "+totalHeure);
+                            console.log("Total Minute : "+totalMinute);
+          
+                            //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
+                            if(cible){ //Si le spectacle qui commence en 1er est la cible
+                                if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
+                                    console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
+                                }
+                            }else{ //Si le spectacle qui commence en 1er est la source
+                                if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
+                                    console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
+                                }
+                            }
+                        } 
+
+                       
+                    });
+                    //console.log("Distance : "+distance+ ", et time : "+time)
+                }
+            }
+        }
+
     }
    
-    var couple = [ville, heure]; 
+  /*  var couple = [ville, heure]; 
 
             var param1  = element[0]; 
             var param2 = couple[0]; 
@@ -332,6 +432,7 @@ function checkDistance(nbForm) {
                 var time = tabRes[1]; 
             } 
         });
+    */
 
 
    
