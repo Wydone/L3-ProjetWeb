@@ -9,13 +9,10 @@
     <link href="css/style2.css" rel="stylesheet" type="text/css">
 
     <title>Theatres de Bourdon</title>
-
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="js/scriptReservation.js"></script>
 </head>
-<body onload="main()">
+<body>
     <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon : Réservation de billets</h1>
+        <h1>Festival Théâtres de Bourdon</h1>
     </div>
 
     <nav class="nav-top">
@@ -44,23 +41,10 @@
 	</nav>
 
     <main>
-        <div class="decalage">
-		<p>
-			ANNONCE IMPORTANTE : Pour 5 billets payants, le 6ème est offert !
-		<p>
-
-
-		<form id="formReservation" name="reservationBillet" action="controleur/addReservationIntoPanier.php" method="POST">
-               
-                <button id="btnNewReservation" type="button">+</button>
-                <input id ="inputSubmitFormReservation" type="submit" value="Ajouter au panier">
-            </form>
-        </div>
     </main>
 
     <footer>
 
     </footer>
 </body>
-	
 </html>

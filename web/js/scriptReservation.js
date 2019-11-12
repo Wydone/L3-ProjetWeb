@@ -8,7 +8,7 @@ var allLabel = ["Titre", "Date", "Horaire", "Village", "Lieu"]; //Tableau des la
 var allLabelName = ["labelTitreOption", "labelDateOption","labelHoraireOption", "labelVillageOption", "labelLieuOption"];
 
 
-var allTarifsReservations = ["Plein Tarif", "Tarif Réduit", "Gratuit (enfant)"] // Tableau des != tarifs
+var allTarifsReservations = ["Plein Tarif (15€)", "Tarif Réduit (10€)", "Gratuit (enfant)"] // Tableau des != tarifs
 var allTarifsReservationsValue = ["P", "R", "O"] //Le symbole des != tarifs
 
 var SousFormulaire = 0; //Variables désigant dans quel sous formulaire on ce trouve
@@ -108,9 +108,13 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
         if (cpt == 0) {
             console.log("Test creation du formulaire n° "+nbForm)
             sousFormulaireSelectedOption[nbForm] = new Array;
-            console.log(sousFormulaireSelectedOption)
+            //console.log(sousFormulaireSelectedOption)
             SousFormulaire += 1; //Designe la creeation d'un nouveau sous formulaire 
             //nbForm +=1
+
+            var newTitre = document.createElement("h2"); //Ajout d'un titre
+            newTitre.innerHTML = "Choix d'un spectacle"; 
+            oForm.insertBefore(newTitre, oSubmit)
 
             //Creation de label pour mon titre de spectacle
             var newlabel = document.createElement("Label");
@@ -122,11 +126,19 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
             //Creation du select "titre" et de ses options
             var newSelect = document.createElement("SELECT"); 
             newSelect.id =  "id_"+allSelectName[0]+"-"+nbForm; 
-            newSelect.name = allSelectName[0] ; 
+            newSelect.name = allSelectName[0]+"-"+nbForm ; 
             newSelect.setAttribute("onchange", "relaodList(this,"+(nbForm)+")");
+            newSelect.required = true;
 
             for(let i = 0; i < arrayAllTitre.length ; i++){
-                var newOption = document.createElement("option"); 
+                var newOption = document.createElement("option");
+                
+                if(i==0){
+                    newOption.disabled = "disabled"; 
+                    newOption.selected = "selected"; 
+                    newOption.value = "value";
+                }
+                
                 newOption.value = allArray[0][i];
                 newOption.text = allArray[0][i];
                 newSelect.add(newOption); 
@@ -147,8 +159,9 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
 
                 var newSelect = document.createElement("SELECT"); 
                 newSelect.id =  "id_"+allSelectName[j]+"-"+nbForm; 
-                newSelect.name = allSelectName[j] ; 
+                newSelect.name = allSelectName[j]+"-"+nbForm ; 
                 newSelect.setAttribute("onchange", "relaodList(this,"+(nbForm)+")");
+                newSelect.required = true;
                   
                 oForm.insertBefore(newSelect, oSubmit);
                 linebreak = document.createElement("br");
@@ -174,7 +187,8 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
                 nbPlaceTarifInput.setAttribute('type', 'number');
                 nbPlaceTarifInput.setAttribute('name', allTarifsReservationsValue[i]+"-"+nbForm);
                 nbPlaceTarifInput.setAttribute('min', 0);
-                nbPlaceTarifInput.setAttribute('max', 20); // ATTENTION QUESTION A POSER !!!
+                nbPlaceTarifInput.setAttribute('max', 20);
+                nbPlaceTarifInput.required = true;
 
                 oForm.insertBefore(nbPlaceTarifInput, oSubmit);
                 linebreak = document.createElement("br");
@@ -200,6 +214,11 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
                     var newOption = document.createElement("option"); 
                     newOption.value = allArray[cpt][j];
                     newOption.text = allArray[cpt][j];
+                    if(j==0){
+                        newOption.disabled = "disabled"; 
+                        newOption.selected = "selected"; 
+                        newOption.value = "value";
+                    }
                     newSelect.add(newOption);
                 }
             }
