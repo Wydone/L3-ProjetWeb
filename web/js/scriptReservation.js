@@ -2,8 +2,7 @@ var allSelectName =["arrayAllTitreOption", "arrayAllDateOption", "arrayAllHorair
 
 var sousFormulaireSelectedOption = new Array; 
 
-var selectedOption = new Array;// [Titre ="", Jour="", Heure="", Village="", Lieu=""]; //Array conenant les choix de l'utilisateur dans les différents select
-//var Titre, Jour, Heure, Village, Lieu; //Déclaration des variables du tableau SelectedOption
+var selectedOption = new Array;  // [Titre ="", Jour="", Heure="", Village="", Lieu=""]; //Array conenant les choix de l'utilisateur dans les différents select
 
 var allLabel = ["Titre", "Date", "Horaire", "Village", "Lieu"]; //Tableau des labels
 
@@ -11,6 +10,9 @@ var allTarifsReservations = ["Plein Tarif", "Tarif Réduit", "Gratuit (enfant)"]
 var allTarifsReservationsValue = ["P", "R", "O"] //Le symbole des != tarifs
 
 var SousFormulaire = 0; //Variables désigant dans quel sous formulaire on ce trouve
+
+var arrayDefaultValue = ["Choisissez un titre", "Choisissez une date", "Choisissez un lieu", "Choisissez un village", "Choisissez un horaire"]; 
+
 
 
 
@@ -204,7 +206,7 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
 
 //FONCTION QUI PERMET D'ACTUALISER LES LISTE D'OPTION DES SELECT EN FONCTION DES RESULATS DE L'UTLISATEUR
 function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectacles
-    console.log("Reload form sur : "+nbForm)
+    //console.log("Reload form sur : "+nbForm)
    
     //console.log(sousFormulaireSelectedOption[nbForm+1])
 
@@ -212,8 +214,7 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
     //ICI nbForm donne le numero de sous formulaire sur lequel on est entrain d'agire (la variable gloabal "sousFormulaire" est pour indicer les id)
 
     //Valeur des tags
-    var arrayDefaultValue = ["Choisissez un titre",  "Choisissez une date", "Choisissez un lieu", "Choisissez un village", "Choisissez un horaire"]; 
-
+  
     if(! arrayDefaultValue.includes(myOption.value)){   //Si le choix de l'utilisateur est différent d'un TAG
 
         $.get("controleur/parseCSVintoArrayJSON.php", function(data){
@@ -290,12 +291,13 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
                 }
     
             });
+            //var arrayDefaultValue = ["Choisissez un titre", "Choisissez une date", "Choisissez un lieu", "Choisissez un village", "Choisissez un horaire"]; 
 
-          /*  if(checking && (infosCheckingSousForm[0] != arrayDefaultValue[1]) && (infosCheckingSousForm[1] != arrayDefaultValue[4]) && (infosCheckingSousForm|[2] != arrayDefaultValue[3]) ){
+            if(checking && (sousFormulaireSelectedOption[nbForm]['Titre'] != arrayDefaultValue[0]) && (sousFormulaireSelectedOption[nbForm]['Jour'] != arrayDefaultValue[1]) && (sousFormulaireSelectedOption[nbForm]['Heure'] != arrayDefaultValue[4]) && (sousFormulaireSelectedOption[nbForm]['Village'] != arrayDefaultValue[3]) ){
                 console.log("APPEL DU CHEKING")
-                console.log(infosCheckingSousForm)
-                checkDistance(arrayAllHoraire[1], arrayAllVillage[1]);
-            }*/
+                console.log("numero de sous formulaire : "+nbForm)
+                //checkDistance(nbForm);
+            }
           
             createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt, nbForm); 
         });
@@ -304,8 +306,13 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
 
 
 //Fonction pour checker si l'utilisateur peut ce rendre à tout les spectacle qu'il a reservé, le check est appelé si a 2 != spectacle à la même Date et dans des ville != 
-function checkDistance(heure, ville) {
+function checkDistance(nbForm) {
     console.log("FONCTION CHECKING NEW APPEL")
+   
+    for(let i=0; i< sousFormulaireSelectedOption.length; i++ ){
+        
+    }
+   
     var couple = [ville, heure]; 
 
             var param1  = element[0]; 
