@@ -323,7 +323,7 @@ function checkDistance(nbForm) {
 
         for(let j=0; j<sousFormulaireSelectedOption.length; j++){
             //console.log("second for")
-            if(j !=i){
+            if(j !=i ){
                 var JourCible  = sousFormulaireSelectedOption[j]['Jour']; 
                 var tmp = sousFormulaireSelectedOption[j]['Heure']; 
                 var tmpHeureCible = tmp.split('h');
