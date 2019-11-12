@@ -311,126 +311,126 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
 
 //Fonction pour checker si l'utilisateur peut ce rendre à tout les spectacle qu'il a reservé, le check est appelé si a 2 != spectacle à la même Date et dans des ville != 
 function checkDistance(nbForm) {
-    
-    console.log("FONCTION CHECKING NEW APPEL")
-
-    
-    var msgError = document.getElementById("msgErrorForm"+"-"+nbForm)
-    if(msgError != null){
-       
-        msgError.remove();
-    }
-    
+   
     var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
 
-        var TitreSource = sousFormulaireSelectedOption[nbForm]['Titre'];
-       
-        var JourSource = sousFormulaireSelectedOption[nbForm]['Jour']; 
-        var VillageSource = sousFormulaireSelectedOption[nbForm]['Village']; 
+    var TitreSource = sousFormulaireSelectedOption[nbForm]['Titre']; //recuperer les infos des Select qui ont effectué l'action
+    
+    var JourSource = sousFormulaireSelectedOption[nbForm]['Jour']; //recuperer les infos des Select qui ont effectué l'action
+    var VillageSource = sousFormulaireSelectedOption[nbForm]['Village']; //recuperer les infos des Select qui ont effectué l'action
 
-        var tmp = sousFormulaireSelectedOption[nbForm]['Heure']; 
-        var tmpHeureSource = tmp.split('h'); 
-        var HeureSource = tmpHeureSource[0] // On ne récupère que l'heure et non les minutes pour le moment 
+    var tmp = sousFormulaireSelectedOption[nbForm]['Heure']; //recuperer les infos des Select qui ont effectué l'action
+    var tmpHeureSource = tmp.split('h'); // ici on split afin que par la suite on puisse traiter les heures et les minutes séparément
+    var HeureSource = tmpHeureSource[0] // On ne récupère que l'heure et non les minutes pour le moment 
 
-        for(let j=0; j<sousFormulaireSelectedOption.length; j++){
- 
-            if(j != nbForm){
+    //Test pour suprimer un message d'erreur eventuelle si l'utilisateur change d'avis après avoir été prévenu.
+    var msgError = document.getElementById("msgErrorForm"+"-"+nbForm)
+    if(msgError != null){
+        msgError.remove();
+    }
 
-                var JourCible  = sousFormulaireSelectedOption[j]['Jour']; 
+    //Parcours de toutes les reservations en cours 
+    for(let j=0; j<sousFormulaireSelectedOption.length; j++){
 
+        if(j != nbForm){ //Seulement traiter les cases différents du notre
+
+            var JourCible  = sousFormulaireSelectedOption[j]['Jour']; //Get les infos des select de la cible 
+
+            var VillageCible = sousFormulaireSelectedOption[j]['Village']; //Get les infos des select de la cible 
+            var TitreCible = sousFormulaireSelectedOption[j]['Titre'];//Get les infos des select de la cible 
+
+            if(JourCible == JourSource && TitreCible != TitreSource){   //Seulement si les Jour sont égaux et titre != alors on va faire notre test de service web
+
+                var tmp = sousFormulaireSelectedOption[j]['Heure']; 
+                var tmpHeureCible = tmp.split('h'); //idem ici on split pour pouvoir travailler sur les heures et les minutes
+                var HeureCible  = tmpHeureCible[0]; // ICI on ne recupère que l'heure et non les minutes pour les envoyer au service web
                 
-                var VillageCible = sousFormulaireSelectedOption[j]['Village']; 
-                var TitreCible = sousFormulaireSelectedOption[j]['Titre'];
 
-                if(JourCible == JourSource && TitreCible != TitreSource){
+                if(HeureCible < HeureSource){   //Choix de l'horaire que l'on va envoyeer au service web. Je prends le plus petit des 2 afin d'addtionner le temps de trajet et ainsi voir si il est possible de ce rendre aux != spectacles
+                    Horaire = HeureCible;
+                    cible = true; 
+                }else {
+                    Horaire = HeureSource; 
+                    cible = false;
+                }
 
-                    var tmp = sousFormulaireSelectedOption[j]['Heure']; 
-                    var tmpHeureCible = tmp.split('h');
-                    var HeureCible  = tmpHeureCible[0]; // ICI on ne recupère que l'heure et non les minutes pour les envoyer au service web
-                   
-                    if(HeureCible < HeureSource){
-                        Horaire = HeureCible;
-                        cible = true; 
-                    }else {
-                        Horaire = HeureSource; 
-                        cible = false;
-                    }
+                $.ajax({    //ici on va utiliser ajax pour appeler notre service web 
 
-                    $.ajax({
-                        url: "controleur/serviceWebDistance.php",
-                        type: "GET",
-                        data: {VillageSource ,VillageCible, Horaire},
-                        success: function(result){
-                            var tabRes = result.split(','); 
-                            distance = tabRes[0]; 
-                            time = tabRes[1]; 
+                    url: "controleur/serviceWebDistance.php",
+                    type: "GET",
+                    data: {VillageSource ,VillageCible, Horaire}, //Data envoyé notre service web
+                    success: function(result){
 
-                            nbHeure = parseInt(Math.trunc((time/60))); 
-                            nbMinute = parseInt(time%60);
+                        var tabRes = result.split(','); 
+                        distance = tabRes[0]; 
+                        time = tabRes[1]; 
 
-                            console.log("nb Heure : "+nbHeure + " , nbMinute : "+nbMinute);
-                            var totalMinute = 0;
-                            var totalHeure = 0;
-                            var nbHeureSup = 0; 
-                            
-                            console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible"+tmpHeureCible[0])
-                            console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source"+tmpHeureSource[0])
+                        nbHeure = parseInt(Math.trunc((time/60))); 
+                        nbMinute = parseInt(time%60);
 
-                            if(cible){
+                        console.log("nb Heure : "+nbHeure + " , nbMinute : "+nbMinute);
+                        var totalMinute = 0;
+                        var totalHeure = 0;
+                        var nbHeureSup = 0; 
+                        
+                        //console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible"+tmpHeureCible[0])
+                        //console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source"+tmpHeureSource[0])
 
-                                totalMinute = parseInt(tmpHeureCible[1]) + nbMinute
+                        //Traitement du temps total pour regarder le spectacle et ce rendre à l'autre.
+                        if(cible){
 
-                                if(totalMinute>=60){
+                            totalMinute = parseInt(tmpHeureCible[1]) + nbMinute
+                            if(totalMinute>=60){
 
-                                    nbHeureSup = Math.trunc(totalMinute/60);
-                                    totalMinute = time%60; 
-                                }
-                                totalHeure = nbHeureSup + nbHeure + parseInt(tmpHeureCible[0]);
-
-                            }else{
-
-                                totalMinute = parseInt(tmpHeureSource[1]) + nbMinute
-
-                                if(totalMinute>=60){
-
-                                    nbHeureSup = Math.trunc(totalMinute/60);
-                                    totalMinute = time%60; 
-                                }
-                                totalHeure = nbHeureSup + nbHeure + parseInt(tmpHeureSource[0]);
+                                nbHeureSup = Math.trunc(totalMinute/60);
+                                totalMinute = time%60; 
                             }
-                            console.log("Total Heure : "+totalHeure);
-                            console.log("Total Minute : "+totalMinute);
+                            totalHeure = nbHeureSup + nbHeure + parseInt(tmpHeureCible[0]);
 
+                        }else{
 
+                            totalMinute = parseInt(tmpHeureSource[1]) + nbMinute
+                            if(totalMinute>=60){
 
-                            var spectacleLabelCible = document.getElementById("id_"+allLabelName[0]+"-"+j); //Get le label "titre" de la cible
-                            var spectacleCible = document.getElementById("id_"+allSelectName[0]+"-"+j); //Get le select "titre" de la cible
-
-                            var spectacleLabelSource = document.getElementById("id_"+allLabelName[0]+"-"+nbForm); //Get le label "titre" de la source
-                            var spectacleSource = document.getElementById("id_"+allSelectName[0]+"-"+nbForm); //Get le select "titre" de la source
-                            
-                            var msgError = document.createElement("p");
-                            msgError.classList = "msgErrorDistanceTimeForm";
-                            msgError.id = "msgErrorForm"+"-"+nbForm;
-
-
-                            //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
-                            if(!cible){ //Si le spectacle qui commence en 1er est la cible
-                                if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
-                                    console.log("cas1")
-                                    msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleCible.value + " , en même temps que celui-ci"
-                                    oForm.insertBefore(msgError, spectacleLabelSource)         
-                                }
-                            }else{ //Si le spectacle qui commence en 1er est la source
-                                if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
-                                    console.log("cas2")
-                                    msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
-                                    oForm.insertBefore(msgError, spectacleLabelCible)
-                                }
+                                nbHeureSup = Math.trunc(totalMinute/60);
+                                totalMinute = time%60; 
                             }
-                        } // fin de success
-                    }); // fin de ajax
-                }// fin de if
+                            totalHeure = nbHeureSup + nbHeure + parseInt(tmpHeureSource[0]);
+                        }
+                        //console.log("Total Heure : "+totalHeure);
+                        //console.log("Total Minute : "+totalMinute);
+
+
+                        //Recupération des infos du DOM pour pouvoir afficher notre msg d'erreur
+                        var spectacleLabelCible = document.getElementById("id_"+allLabelName[0]+"-"+j); //Get le label "titre" de la cible
+                        var spectacleCible = document.getElementById("id_"+allSelectName[0]+"-"+j); //Get le select "titre" de la cible
+
+                        var spectacleLabelSource = document.getElementById("id_"+allLabelName[0]+"-"+nbForm); //Get le label "titre" de la source
+                        var spectacleSource = document.getElementById("id_"+allSelectName[0]+"-"+nbForm); //Get le select "titre" de la source
+                        
+                        var msgError = document.createElement("p");
+                        msgError.classList = "msgErrorDistanceTimeForm";
+                        msgError.id = "msgErrorForm"+"-"+nbForm;
+
+
+                        //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
+                        if(!cible){ //Si le spectacle qui commence en 1er est la cible
+                            if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
+                            
+                                msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleCible.value + " , en même temps que celui-ci"
+                                oForm.insertBefore(msgError, spectacleLabelSource)         
+                            }
+                        }else{ //Si le spectacle qui commence en 1er est la source
+                            if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
+                               
+                                msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
+                                oForm.insertBefore(msgError, spectacleLabelCible)
+                            }
+                        }
+
+                    } // fin de success
+                }); // fin de ajax
             }
-        }//fin de 2eme for
+        }
+    }
 }
