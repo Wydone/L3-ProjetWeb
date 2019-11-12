@@ -20,7 +20,7 @@
             <form id="formReservation" name="reservationBillet" action="addReservationIntoFile.php" method="POST">
                 <h3>Choix du spectacle</h3>
                 <button id="btnNewReservation" type="button">+</button>
-                <input id ="inputSubmitFormReservation" type="submit" value="Valider la reservation">
+                <input id ="inputSubmitFormReservation" type="submit" value="Ajouter au panier">
             </form>
         </div>
     </main>
