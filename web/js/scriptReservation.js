@@ -1,7 +1,9 @@
 var allSelectName =["arrayAllTitreOption", "arrayAllDateOption", "arrayAllHoraireOption","arrayAllVillageOption" , "arrayAllLieuOption"]; //Liste des nom des select dans mon formulaire
 
-var selectedOption = [Titre, Jour, Heure, Village, Lieu]; //Array conenant les choix de l'utilisateur dans les différents select
-var Titre, Jour, Heure, Village, Lieu; //Déclaration des variables du tableau SelectedOption
+var sousFormulaireSelectedOption = new Array; 
+
+var selectedOption = new Array;// [Titre ="", Jour="", Heure="", Village="", Lieu=""]; //Array conenant les choix de l'utilisateur dans les différents select
+//var Titre, Jour, Heure, Village, Lieu; //Déclaration des variables du tableau SelectedOption
 
 var allLabel = ["Titre", "Date", "Horaire", "Village", "Lieu"]; //Tableau des labels
 
@@ -19,6 +21,7 @@ function main() {
         console.log("Click sur +")
         loadList(SousFormulaire);
     }); 
+   
     loadList(0); 
 
 }
@@ -92,14 +95,18 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
 
         var oSubmit = document.getElementById("inputSubmitFormReservation"); 
 
+       
+       // console.log(sousFormulaireSelectedOption[nbForm])
 
         /* Creation de mes 5 liste déroulante */
 
         //CPT designe le fait que le formulaire soit dans l'état de base (cad toutes les select sont vide sauf le choix du titre du spectacle)
         if (cpt == 0) {
-
+            console.log("Test creation du formulaire n° "+nbForm)
+            sousFormulaireSelectedOption[nbForm] = new Array;
+            console.log(sousFormulaireSelectedOption)
             SousFormulaire += 1; //Designe la creeation d'un nouveau sous formulaire 
-
+            //nbForm +=1
 
             //Creation de label pour mon titre de spectacle
             var newlabel = document.createElement("Label");
@@ -197,6 +204,12 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
 
 //FONCTION QUI PERMET D'ACTUALISER LES LISTE D'OPTION DES SELECT EN FONCTION DES RESULATS DE L'UTLISATEUR
 function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectacles
+    console.log("Reload form sur : "+nbForm)
+   
+    //console.log(sousFormulaireSelectedOption[nbForm+1])
+
+
+    //ICI nbForm donne le numero de sous formulaire sur lequel on est entrain d'agire (la variable gloabal "sousFormulaire" est pour indicer les id)
 
     //Valeur des tags
     var arrayDefaultValue = ["Choisissez un titre",  "Choisissez une date", "Choisissez un lieu", "Choisissez un village", "Choisissez un horaire"]; 
@@ -231,8 +244,9 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
                 
                 if(myOption.value == element['TitreSpectacle']){    //Si mon option est un titre 
                     
-                    selectedOption.Titre = myOption.value;  //Stockage le l'option choisi dans une ARRAY (permet de savoir tt les choix de l'utilisateur)
                     cpt =1 ; //Permet de prevenir la fonction createForm que c'est un reload et non une creation 
+                    sousFormulaireSelectedOption[nbForm]['Titre'] = myOption.value;//Stockage le l'option choisi dans une ARRAY 2D
+                   
                     //Stocker la date
                     var tempDate = element['Jour']
                     if(! arrayAllDate.includes(tempDate)){
@@ -240,10 +254,10 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
                     }
 
     
-                }else if(myOption.value == element['Jour'] && element['TitreSpectacle']==selectedOption.Titre) { // si mon option est un Jour
+                }else if(myOption.value == element['Jour'] && element['TitreSpectacle']==sousFormulaireSelectedOption[nbForm]['Titre']) { // si mon option est un Jour
                    
                     cpt = 2 ; 
-                    selectedOption.Jour = myOption.value;  //Stockage le l'option choisi dans une ARRAY
+                    sousFormulaireSelectedOption[nbForm]['Jour'] = myOption.value; //Stockage le l'option choisi dans une ARRAY 2D
                    
                     //Stocker les horaires
                     var tempHoraire = element['Heure']
@@ -251,31 +265,28 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
                         arrayAllHoraire.push(tempHoraire); 
                     }
 
-                }else if(myOption.value == element['Heure'] && element['TitreSpectacle']==selectedOption.Titre && element['Jour'] == selectedOption.Jour){ //Si mon option est une Heure
+                }else if(myOption.value == element['Heure'] && element['TitreSpectacle']==sousFormulaireSelectedOption[nbForm]['Titre'] && element['Jour'] == sousFormulaireSelectedOption[nbForm]['Jour']){ //Si mon option est une Heure
                    
                     cpt = 3 ; 
-                    selectedOption.Heure =  myOption.value //Stockage le l'option choisi dans une ARRAY
-                  
+                    sousFormulaireSelectedOption[nbForm]['Heure'] = myOption.value; //Stockage le l'option choisi dans une ARRAY 2D
+                   
                     //Stockage des villages
                     var tempVillage = element['Village']
                     if(! arrayAllVillage.includes(tempVillage)){
                         arrayAllVillage.push(tempVillage); 
                     }
                  
-                }else if(myOption.value == element['Village'] && element['TitreSpectacle']==selectedOption.Titre && element['Jour'] == selectedOption.Jour && element['Heure'] == selectedOption.Heure){ //Si mon option est un village
+                }else if(myOption.value == element['Village'] && element['TitreSpectacle']==sousFormulaireSelectedOption[nbForm]['Titre'] && element['Jour'] == sousFormulaireSelectedOption[nbForm]['Jour'] && element['Heure'] == sousFormulaireSelectedOption[nbForm]['Heure']){ //Si mon option est un village
                     checking = true ; 
                     
                     cpt = 4 ; 
+                    sousFormulaireSelectedOption[nbForm]['Village'] = myOption.value; //Stockage le l'option choisi dans une ARRAY 2D
                     
-                    selectedOption.Village =  myOption.value //Stockage le l'option choisi dans une ARRAY
-                   
                     //Stockage des Lieux
                     var tempLieu = element['Lieu']
                     if(! arrayAllLieu.includes(tempLieu)){
                         arrayAllLieu.push(tempLieu); 
                     }
-
-                   
                 }
     
             });
@@ -285,14 +296,10 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
                 console.log(infosCheckingSousForm)
                 checkDistance(arrayAllHoraire[1], arrayAllVillage[1]);
             }*/
-            console.log(selectedOption + " nbSous formulaire = "+ SousFormulaire);
-            //Appel createForm afin de reload les option du SELECT cpt
+          
             createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arrayAllLieu, arrayAllVillage, cpt, nbForm); 
         });
     }
-
-    
-   
 }
 
 
