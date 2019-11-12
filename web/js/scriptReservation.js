@@ -313,9 +313,16 @@ function relaodList(myOption, nbForm){  //Ne reloadera pas les Titres de spectac
 function checkDistance(nbForm) {
     
     console.log("FONCTION CHECKING NEW APPEL")
-   
-   // for(let i=0; i< sousFormulaireSelectedOption.length; i++ ){
-       // console.log("first for")
+
+    
+    var msgError = document.getElementById("msgErrorForm"+"-"+nbForm)
+    if(msgError != null){
+       
+        msgError.remove();
+    }
+    
+    var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
+
         var TitreSource = sousFormulaireSelectedOption[nbForm]['Titre'];
        
         var JourSource = sousFormulaireSelectedOption[nbForm]['Jour']; 
@@ -326,17 +333,20 @@ function checkDistance(nbForm) {
         var HeureSource = tmpHeureSource[0] // On ne récupère que l'heure et non les minutes pour le moment 
 
         for(let j=0; j<sousFormulaireSelectedOption.length; j++){
-            //console.log("second for")
+ 
             if(j != nbForm){
+
                 var JourCible  = sousFormulaireSelectedOption[j]['Jour']; 
-                var tmp = sousFormulaireSelectedOption[j]['Heure']; 
-                var tmpHeureCible = tmp.split('h');
-                var HeureCible  = tmpHeureCible[0]; // ICI on ne recupère que l'heure et non les minutes pour les envoyer au service web
+
                 
                 var VillageCible = sousFormulaireSelectedOption[j]['Village']; 
                 var TitreCible = sousFormulaireSelectedOption[j]['Titre'];
 
                 if(JourCible == JourSource && TitreCible != TitreSource){
+
+                    var tmp = sousFormulaireSelectedOption[j]['Heure']; 
+                    var tmpHeureCible = tmp.split('h');
+                    var HeureCible  = tmpHeureCible[0]; // ICI on ne recupère que l'heure et non les minutes pour les envoyer au service web
                    
                     if(HeureCible < HeureSource){
                         Horaire = HeureCible;
@@ -352,14 +362,12 @@ function checkDistance(nbForm) {
                         data: {VillageSource ,VillageCible, Horaire},
                         success: function(result){
                             var tabRes = result.split(','); 
-                            console.log(tabRes);
                             distance = tabRes[0]; 
                             time = tabRes[1]; 
 
-                            //console.log(distance + ", "+ time)
-                            //time = Math.trunc((time/60)) ;
                             nbHeure = parseInt(Math.trunc((time/60))); 
                             nbMinute = parseInt(time%60);
+
                             console.log("nb Heure : "+nbHeure + " , nbMinute : "+nbMinute);
                             var totalMinute = 0;
                             var totalHeure = 0;
@@ -367,7 +375,6 @@ function checkDistance(nbForm) {
                             
                             console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible"+tmpHeureCible[0])
                             console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source"+tmpHeureSource[0])
-                            
 
                             if(cible){
 
@@ -393,38 +400,37 @@ function checkDistance(nbForm) {
                             }
                             console.log("Total Heure : "+totalHeure);
                             console.log("Total Minute : "+totalMinute);
-          
-                            //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
-                            if(cible){ //Si le spectacle qui commence en 1er est la cible
-                                if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
-                                    //console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
-                                    
-                                    var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
-                                    var spectacleCible = document.getElementById("id_"+allLabelName[0]+"-"+j);
-                                    var spectacleSource = document.getElementById("id_"+allLabelName[0]+"-"+nbForm)
 
-                                    var msgError = document.createElement("p");
-                                    msgError.classList = "msgErrorDistanceTimeForm";
-                                    msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
-                                    oForm.insertBefore(msgError, spectacleCible)
-                                        
+
+
+                            var spectacleLabelCible = document.getElementById("id_"+allLabelName[0]+"-"+j); //Get le label "titre" de la cible
+                            var spectacleCible = document.getElementById("id_"+allSelectName[0]+"-"+j); //Get le select "titre" de la cible
+
+                            var spectacleLabelSource = document.getElementById("id_"+allLabelName[0]+"-"+nbForm); //Get le label "titre" de la source
+                            var spectacleSource = document.getElementById("id_"+allSelectName[0]+"-"+nbForm); //Get le select "titre" de la source
+                            
+                            var msgError = document.createElement("p");
+                            msgError.classList = "msgErrorDistanceTimeForm";
+                            msgError.id = "msgErrorForm"+"-"+nbForm;
+
+
+                            //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
+                            if(!cible){ //Si le spectacle qui commence en 1er est la cible
+                                if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
+                                    console.log("cas1")
+                                    msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleCible.value + " , en même temps que celui-ci"
+                                    oForm.insertBefore(msgError, spectacleLabelSource)         
                                 }
                             }else{ //Si le spectacle qui commence en 1er est la source
                                 if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
-                                    //console.log("ERROR IMPOSSIBLE D4ALLER AUX 2 SPECTACLE EN MEME TEMPS")
-                                    var oForm = document.getElementById("formReservation"); //Get l'element formulaire sur lequel je travail. 
-                                    var spectacleCible = document.getElementById("id_"+allLabelName[0]+"-"+j);
-                                    var spectacleSource = document.getElementById("id_"+allLabelName[0]+"-"+nbForm)
-
-                                    var msgError = document.createElement("p");
-                                    msgError.classList = "msgErrorDistanceTimeForm"
+                                    console.log("cas2")
                                     msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
-                                    oForm.insertBefore(msgError, spectacleCible)
+                                    oForm.insertBefore(msgError, spectacleLabelCible)
                                 }
                             }
                         } // fin de success
                     }); // fin de ajax
                 }// fin de if
-            }//fin de if
+            }
         }//fin de 2eme for
 }
