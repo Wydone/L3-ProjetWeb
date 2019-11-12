@@ -41,6 +41,16 @@
 	</nav>
 
     <main>
+        <div class="decalage">
+
+
+            <?php 
+                session_start();
+                print_r($_SESSION["monPanier"]); // sa fonctionne
+
+            ?>
+
+        </div>
     </main>
 
     <footer>

@@ -45,15 +45,14 @@
 
     <main>
         <div class="decalage">
-		<p>
-			ANNONCE IMPORTANTE : Pour 5 billets payants, le 6ème est offert !
-		<p>
+			<p>
+				ANNONCE IMPORTANTE : Pour 5 billets payants, le 6ème est offert !
+			<p>
 
-
-		<form id="formReservation" name="reservationBillet" action="controleur/addReservationIntoPanier.php" method="POST">
-               
-                <button id="btnNewReservation" type="button">+</button>
-                <input id ="inputSubmitFormReservation" type="submit" value="Ajouter au panier">
+			<form id="formReservation" name="reservationBillet" action="controleur/addReservationIntoPanier.php" method="POST">
+				
+				<button id="btnNewReservation" type="button">+</button>
+				<input id ="inputSubmitFormReservation" type="submit" value="Ajouter au panier">
             </form>
         </div>
     </main>
