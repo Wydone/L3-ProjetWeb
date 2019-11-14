@@ -387,13 +387,13 @@ function checkDistance(nbForm) {
                         nbHeure = parseInt(Math.trunc((time/60))); 
                         nbMinute = parseInt(time%60);
 
-                        console.log("nb Heure : "+nbHeure + " , nbMinute : "+nbMinute);
+                        //console.log("nb Heure : "+nbHeure + " , nbMinute : "+nbMinute);
                         var totalMinute = 0;
                         var totalHeure = 0;
                         var nbHeureSup = 0; 
                         
-                        //console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible"+tmpHeureCible[0])
-                        //console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source"+tmpHeureSource[0])
+                        console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible"+tmpHeureCible[0])
+                        console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source"+tmpHeureSource[0])
 
                         //Traitement du temps total pour regarder le spectacle et ce rendre à l'autre.
                         if(cible){
@@ -416,10 +416,7 @@ function checkDistance(nbForm) {
                             }
                             totalHeure = nbHeureSup + nbHeure + parseInt(tmpHeureSource[0]);
                         }
-                        //console.log("Total Heure : "+totalHeure);
-                        //console.log("Total Minute : "+totalMinute);
-
-
+                      
                         //Recupération des infos du DOM pour pouvoir afficher notre msg d'erreur
                         var spectacleLabelCible = document.getElementById("id_"+allLabelName[0]+"-"+j); //Get le label "titre" de la cible
                         var spectacleCible = document.getElementById("id_"+allSelectName[0]+"-"+j); //Get le select "titre" de la cible
@@ -434,13 +431,13 @@ function checkDistance(nbForm) {
 
                         //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
                         if(!cible){ //Si le spectacle qui commence en 1er est la cible
-                            if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
+                            if(totalHeure > parseInt(tmpHeureSource[0]) && totalMinute > parseInt(tmpHeureSource[1])){
                             
                                 msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleCible.value + " , en même temps que celui-ci"
                                 oForm.insertBefore(msgError, spectacleLabelSource)         
                             }
                         }else{ //Si le spectacle qui commence en 1er est la source
-                            if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
+                            if(totalHeure > parseInt(tmpHeureCible[0]) && totalMinute > parseInt(tmpHeureCible[1])){
                                
                                 msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
                                 oForm.insertBefore(msgError, spectacleLabelCible)
