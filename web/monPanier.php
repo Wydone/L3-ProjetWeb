@@ -65,9 +65,14 @@
 							foreach($uneReservation as $key => $value){
 							
 								list($name, $oldKey) = explode("-",$key); 
-								$newKey = $name.'-'.$index ; 
-								$uneReservation[$newKey] = $value;
-								unset($uneReservation[$key]); 
+								if ($oldKey != $index){
+									
+									$newKey = $name.'-'.$index ;  
+									$uneReservation[$newKey] = $value;
+									 
+									unset($uneReservation[$key]); 
+								}
+								
 							}
 							//var_dump($uneReservation);
 							//echo "THIS IS A TEST : ".$uneReservation["arrayAllTitreOption-".$index]; 
@@ -93,7 +98,8 @@
 						}
 					}
 				?>
-				<a href="reservationBillets.php"><button type="button" id="btnAjouterSpectacleDansPanier">+</button></a>
+				
+				<button type="button" id="btnAjouterSpectacleDansPanier">+</button>
 				<input id ="idValiderPanier" type="submit" value="Valider mon panier">
             </form>
 			
