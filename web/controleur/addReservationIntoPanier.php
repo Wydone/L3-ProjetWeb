@@ -38,25 +38,7 @@
 
         $cpt +=1;
     }
-/*
-    var_dump($allListeReservation);
-
-    
-    if($_SESSION["monPanier"] != NULL){
-        array_push($_SESSION["monPanier"],$allListeReservation); 
-    }else{
-        $_SESSION["monPanier"]=$allListeReservation;
-    }
-    echo "Nouvelle valeur : ";*/
-   // var_dump($_SESSION['monPanier']);
-
-  
-    //$_SESSION["allIndex"]=$allChampsNamePOST;
-   // $_SESSION["allIndex"]=$allChampsNamePOST;
 
     header('Location: ../monPanier.php');
 
-    //print_r($allChampsNamePOST);
-    //print_r($allChampsValuePOST);
-    //print_r($allListeReservation);
 ?>

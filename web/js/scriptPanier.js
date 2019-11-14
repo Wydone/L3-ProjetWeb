@@ -13,7 +13,6 @@ function main(nbSpectacleDifferent){
         var btnSupprimer = document.getElementById("btnSupprimerDuPanier-"+i);
         if(btnSupprimer != null){
             btnSupprimer.addEventListener('click', function(){
-                console.log("Click sur supprimer")
                 supprmierReservation(i); 
             });     
         }
@@ -89,7 +88,6 @@ function getAllPrix() {
             }
         }  
     }
-    console.log("modification du prix : "+prixTotalPanier);
 
     var prix = document.getElementById("labelPrixPanier"); 
   
@@ -98,8 +96,7 @@ function getAllPrix() {
     prixTotalPanier = 0; 
     nbTotalPlacePayante = 0; 
     pasEncoreReduc = true; 
-   
-   
+
 }
 
 function supprmierReservation(numeroSpectacle) {
@@ -110,11 +107,9 @@ function supprmierReservation(numeroSpectacle) {
         type: "GET",
         data: {numeroSpectacle},
         success: function() {
-          console.log("Successly removed !");
         }
     });
 
     allIndexInPanier.splice(numeroSpectacle, 1);
 
-    console.log("Fin du remove from php array"); 
 }

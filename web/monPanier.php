@@ -59,8 +59,6 @@
 						$cpt = 0;
 						
 						foreach($_SESSION["monPanier"] as $index=>$uneReservation){	
-							//echo "INDEX : ".$index."<br>";
-							//var_dump($uneReservation);
 							
 							foreach($uneReservation as $key => $value){
 							
@@ -72,19 +70,25 @@
 									 
 									unset($uneReservation[$key]); 
 								}
-								
 							}
-							//var_dump($uneReservation);
-							//echo "THIS IS A TEST : ".$uneReservation["arrayAllTitreOption-".$index]; 
 
 							echo "<section id=\"id_panierSection-".$index."\" class=\"section-block\">";		
 					
 							echo "<titrespectacle>".$uneReservation["arrayAllTitreOption-".$index]."</titrespectacle>";
-							echo ", <horaire>".$uneReservation["arrayAllDateOption-".$index]."</horaire>";
-							echo ", <horaire>".$uneReservation["arrayAllHoraireOption-".$index]."</horaire>";
-							echo ", <lieu>".$uneReservation["arrayAllLieuOption-".$index]."</lieu>";
-							echo " à <village>".$uneReservation["arrayAllVillageOption-".$index]."</village>";
+							echo "<input id=\"id_arrayAllTitreOption\" name=\"arrayAllTitreOption-".$index."\" type=\"hidden\" value=\"".$uneReservation["arrayAllTitreOption-".$index]."\">";
 							
+							echo ", <horaire>".$uneReservation["arrayAllDateOption-".$index]."</horaire>";
+							echo "<input id=\"id_arrayAllDateOption\" name=\"arrayAllDateOption-".$index."\" type=\"hidden\" value=\"".$uneReservation["arrayAllDateOption-".$index]."\">";
+
+							echo ", <horaire>".$uneReservation["arrayAllHoraireOption-".$index]."</horaire>";
+							echo "<input id=\"id_arrayAllHoraireOption\" name=\"arrayAllHoraireOption-".$index."\" type=\"hidden\" value=\"".$uneReservation["arrayAllHoraireOption-".$index]."\">";
+
+							echo ", <lieu>".$uneReservation["arrayAllLieuOption-".$index]."</lieu>";
+							echo "<input id=\"id_arrayAllLieuOption\" name=\"arrayAllLieuOption-".$index."\" type=\"hidden\" value=\"".$uneReservation["arrayAllLieuOption-".$index]."\">";
+
+							echo " à <village>".$uneReservation["arrayAllVillageOption-".$index]."</village>";
+							echo "<input id=\"id_arrayAllVillageOption\" name=\"arrayAllVillageOption-".$index."\" type=\"hidden\" value=\"".$uneReservation["arrayAllVillageOption-".$index]."\">";
+
 								
 							echo "<br><br>Plein Tarif (15€) : <input type=\"number\" id=\"id_P-".$index."\" name=\"P-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['P-'.$index].">";
 							echo "<br>Tarif Réduit (10€) : <input type=\"number\" id=\"id_R-".$index."\" name=\"R-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['R-'.$index].">";
