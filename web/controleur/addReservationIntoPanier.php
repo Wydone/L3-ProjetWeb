@@ -28,8 +28,7 @@
         $listeReservationParSpectacle[$post] = $val; 
 
         if($cpt == 7){ //car il y a 7 champs dans mon formulaire par spectacle 
-            
-
+        
             array_push($_SESSION["monPanier"], $listeReservationParSpectacle); 
 
             $listeReservationParSpectacle = array(); 

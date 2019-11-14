@@ -55,7 +55,7 @@
 					if(!isset($_SESSION["monPanier"])){
 						echo "error";
 					}else {
-						//var_dump($_SESSION["monPanier"]);
+						var_dump($_SESSION["monPanier"]);
 						$cpt = 0;
 						
 						foreach($_SESSION["monPanier"] as $index=>$uneReservation){	
