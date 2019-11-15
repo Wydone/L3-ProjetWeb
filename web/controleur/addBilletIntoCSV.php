@@ -6,6 +6,10 @@
 
     $cpt = 0; 
 
+    $update = ""; 
+    $separator = ",";
+    $ligneModifie;
+
     foreach ($_POST as $key => $val )  {
 
         array_push($tmpCouple,$val);
@@ -32,7 +36,7 @@
             if($row != 1){
                foreach ($reservationIntoCSV as $element){
                    if($element[0] == $line[2] && $element[1] == $line[0] && $element[2] == $line[1] && $element[3] == $line[3] && $element[4] == $line[4]){
-                        echo "modification à la ligne : ".$row; 
+                        echo "modification à la ligne : ".$row."\n"; 
 
                         
 
@@ -40,15 +44,28 @@
                        $line[7] += $element[6];
                        $line[8] += $element[7];
 
-                       echo "nouvelle valeur de P : ".$line[6];
-                       //fputcsv($file, $line);
-
+                       //fwrite($file,$line);
+                      
+                        $update	.= implode($separator,$line)."\r\n";
+                        $ligneModifie = true ; 
                    }
                } 
+               if (!$ligneModifie){
+                    $update .= implode($separator,$line)."\r\n"; 
+               }else {
+                   $ligneModifie = false ;
+               }
+               
+            }else {
+                $update .= implode($separator,$line)."\r\n"; 
             }
             $row++; 
         }
-       // fclose($file);
+        fclose($file);
+
+        $edit = fopen("../data/test.csv", "w+"); 
+        fwrite($edit, $update);
+        fclose($edit);
 
     }else {
         echo "error ouverture file";
