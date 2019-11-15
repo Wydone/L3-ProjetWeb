@@ -32,8 +32,10 @@ function main(nbSpectacleDifferent){
     labelPrixPanier.id = "labelPrixPanier"; 
     labelPrixPanier.innerHTML = "Prix total du panier : "+prixTotalPanier+" €"; 
 
-    oForm.insertBefore(labelPrixPanier, btnAjouterSpectacleDansPanier);
 
+
+    oForm.insertBefore(labelPrixPanier, btnAjouterSpectacleDansPanier);
+  
     for(let i=0; i<allIndexInPanier.length; i++){
         
         let index = allIndexInPanier[i]; 
@@ -69,7 +71,9 @@ function getAllPrix() {
         let index = allIndexInPanier[i]; 
         var nbPleinTarif = document.getElementById(['id_P-'+index]); 
         var nbTarifReduit =  document.getElementById(['id_R-'+index]);
-        var nbGratuit =  document.getElementById(['id_O-'+index]); //ne comporate pas la 6 eme place offerte
+        var nbGratuit =  document.getElementById(['id_E-'+index]); //ne comporate pas la 6 eme place offerte
+
+        var nbOffert =  document.getElementById(['id_O-'+index]);
 
         if(nbPleinTarif != null && nbTarifReduit != null && nbGratuit !=null){
         
@@ -82,8 +86,10 @@ function getAllPrix() {
                 pasEncoreReduc = false;
                 if(nbTarifReduit.value != 0){
                     prixTotalPanier -= 10; 
+                    nbOffert.value = 1; 
                 }else{
                     prixTotalPanier -= 15; 
+                    nbOffert.value = 1;
                 }
             }
         }  

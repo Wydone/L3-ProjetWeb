@@ -8,7 +8,7 @@
 
     $update = ""; 
     $separator = ",";
-    $ligneModifie;
+    $ligneModifie = false; 
 
     foreach ($_POST as $key => $val )  {
 
@@ -16,7 +16,7 @@
 
         array_push($allTmpCouple,$tmpCouple);
 
-        if ($cpt == 7) {
+        if ($cpt == 8) {
 
             array_push($reservationIntoCSV,$tmpCouple);
             $tmpCouple = array (); 
@@ -28,7 +28,6 @@
 
     var_dump($reservationIntoCSV); 
     
-
     $row = 1; 
     if($file = fopen("../data/test.csv", "r+")){
         //echo $file;
@@ -40,9 +39,10 @@
 
                         
 
-                        $line[6] += $element[5]; 
-                       $line[7] += $element[6];
-                       $line[8] += $element[7];
+                        $line[6] += $element[5]; // champ P colone 6
+                        $line[7] += $element[6]; //champ R colonne 7
+                        $line[11] += $element[7]; //champ E colonne 11
+                        $line[8] += $element[8]; //Champ O colonne 8
 
                        //fwrite($file,$line);
                       
@@ -71,7 +71,7 @@
         echo "error ouverture file";
     }
 
-    
+
 
 
 ?>

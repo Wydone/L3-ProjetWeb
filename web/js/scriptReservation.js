@@ -9,7 +9,7 @@ var allLabelName = ["labelTitreOption", "labelDateOption","labelHoraireOption", 
 
 
 var allTarifsReservations = ["Plein Tarif (15€)", "Tarif Réduit (10€)", "Gratuit (enfant)"] // Tableau des != tarifs
-var allTarifsReservationsValue = ["P", "R", "O"] //Le symbole des != tarifs
+var allTarifsReservationsValue = ["P", "R", "E"] //Le symbole des != tarifs
 
 var SousFormulaire = 0; //Variables désigant dans quel sous formulaire on ce trouve
 

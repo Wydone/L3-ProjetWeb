@@ -53,7 +53,7 @@
 					session_start();
 					
 					if(!isset($_SESSION["monPanier"])){
-						echo "error";
+						echo "Votre panier est vide ! Rendez vous sur le formulaire de reservation de billet dans le menu";
 					}else {
 						var_dump($_SESSION["monPanier"]);
 						$cpt = 0;
@@ -92,7 +92,9 @@
 								
 							echo "<br><br>Plein Tarif (15€) : <input type=\"number\" id=\"id_P-".$index."\" name=\"P-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['P-'.$index].">";
 							echo "<br>Tarif Réduit (10€) : <input type=\"number\" id=\"id_R-".$index."\" name=\"R-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['R-'.$index].">";
-							echo "<br>Gratuit (enfant) : <input type=\"number\" id=\"id_O-".$index."\" name=\"O-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['O-'.$index].">";
+							echo "<br>Gratuit (enfant) : <input type=\"number\" id=\"id_E-".$index."\" name=\"E-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['E-'.$index].">";
+
+							echo "<input type=\"hidden\" id=\"id_O-".$index."\" name=\"O-".$index."\" min=\"0\" max=\"20\" value=\"0\">";
 						
 							
 							echo "<br><br><button id=\"btnSupprimerDuPanier-".$index."\" type=\"button\">Supprimer du panier</button>";
