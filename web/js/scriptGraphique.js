@@ -12,9 +12,10 @@ var seriesOptions = [];
 function main(){
 
     $(document).ready(function() {
-
+      
         $.get('data/test.csv', function(csvFile) {
-            parseDataCSV(csvFile); 
+            parseDataCSV(csvFile);
+            //setInterval(function(){ parseDataCSV(csvFile); }, 3000);
         });
         
         //Dernier traitement : ajout des prix ;
@@ -43,6 +44,8 @@ function buildData() {
 }
 
 function parseDataCSV(csvFile) {
+    console.log("APPEL DE PARSECSVDATA"); 
+
     var data = []; 
     var lines = csvFile.split('\n'); 
 
