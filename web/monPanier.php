@@ -54,6 +54,7 @@
 					
 					if(!isset($_SESSION["monPanier"])){
 						echo "Votre panier est vide ! Rendez vous sur le formulaire de reservation de billet dans le menu";
+						$cpt = 0;
 					}else {
 						var_dump($_SESSION["monPanier"]);
 						$cpt = 0;
@@ -64,7 +65,6 @@
 							
 								list($name, $oldKey) = explode("-",$key); 
 								if ($oldKey != $index){
-									
 									$newKey = $name.'-'.$index ;  
 									$uneReservation[$newKey] = $value;
 									 
