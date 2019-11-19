@@ -29,8 +29,8 @@
     var_dump($reservationIntoCSV); 
     
     $row = 1; 
-    if($file = fopen("../data/test.csv", "r+")){
-        //echo $file;
+    if($file = fopen("../data/test.csv", "r")){
+        echo $file;
         while(($line = fgetcsv($file, 1024, ",")) !== FALSE){
             if($row != 1){
                foreach ($reservationIntoCSV as $element){
@@ -63,14 +63,24 @@
         }
         fclose($file);
 
-        $edit = fopen("../data/test.csv", "w+"); 
-        fwrite($edit, $update);
-        fclose($edit);
+        if( $edit = fopen("../data/test.csv", "w")){
+            echo "Modification du CSV file"; 
+            fwrite($edit, $update);
+            fclose($edit);
+        }else {
+            echo "Erreur d'ouverture du fichier pour la modification";
+        }
+        
+
+        $msg = "Panier validé";
 
     }else {
-        echo "error ouverture file";
+        echo "error ouverture csv file";
+        //$msg = "une erreur détecté, panier non validé";
     }
+   
 
+   // header('Location:../accueil.php?msgValidation='.$msg);
 
 
 

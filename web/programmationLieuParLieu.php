@@ -36,6 +36,15 @@
 				<li>
 					<a href="tarifs.php">Tarif</a>
 				</li>
+				<li>
+					<a href="reservationBillets.php">Reserver vos billets</a>
+				</li>
+				<li>
+					<a href="monPanier.php">Mon panier</a>
+				</li>
+				<li>
+					<a href="graphiques.php">Les graphiques</a>
+				</li>
 	    	</ul>
 		</div>
 	</nav>
