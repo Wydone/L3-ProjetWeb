@@ -76,11 +76,11 @@
 
     }else {
         echo "error ouverture csv file";
-        //$msg = "une erreur détecté, panier non validé";
+        $msg = "une erreur détecté, panier non validé";
     }
    
 
-   // header('Location:../accueil.php?msgValidation='.$msg);
+    header('Location:../accueil.php?msgValidation='.$msg);
 
 
 

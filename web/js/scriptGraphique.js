@@ -1,7 +1,7 @@
 /* Variables globales */
 var Mycategories = new Array;  // = nb bar différentes dans le graphe
 var MyNames = ["P", "R", "O", "SJ", "SA"]; // = nb rectangle différents dans chaque bar
-
+//var LegendMyNames = ["Plein tarif", "Tarif réduit"]
 var allData = new Array; // 
 
 var seriesOptions = [];
@@ -134,7 +134,7 @@ function createChart(){
             type: 'column'
         },
         title: {
-            text: 'Stacked column chart'
+            text: 'Nombre de places vendues'
         },
         xAxis: {
             categories: Mycategories
@@ -142,7 +142,7 @@ function createChart(){
         yAxis: {
             min: 0,
             title: {
-                text: 'Total billets'
+                text: 'Nombre total des ventes de billets'
             },
             stackLabels: {
                 enabled: true,

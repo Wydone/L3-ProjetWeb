@@ -9,8 +9,14 @@
     <link href="css/style2.css" rel="stylesheet" type="text/css">
 
     <title>Theatres de Bourdon</title>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="js/scriptCanvas.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+
 </head>
-<body>
+<body onload="main()">
     <div class="bandeau">
         <h1>Festival Théâtres de Bourdon</h1>
     </div>
@@ -50,11 +56,11 @@
 	</nav>
 
     <main>
-		<div class="decalage">
-			<?php
-				echo "<p class=\"msgValidationErreurPanier\">".$_GET['msgValidation']."</p>";		
-			?>
-		</div>
+        <div class="decalage">
+            <h2> Mes graphiques</h2>
+            <canvas id="myCanvas"></canvas>
+            
+        </div>
     </main>
 
     <footer>

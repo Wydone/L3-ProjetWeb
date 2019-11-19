@@ -57,3 +57,8 @@
 .msgErrorDistanceTimeForm {
     color: red;
 }
+
+
+.msgValidationErreurPanier{
+    color: green;
+}
