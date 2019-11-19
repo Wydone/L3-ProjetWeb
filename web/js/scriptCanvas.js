@@ -125,9 +125,12 @@ function loadChart(){
     ctx.fillStyle = "#000;"
     
     var maxX = canvas.width -70;
-	var maxY = canvas.height -70;
+	var maxY = canvas.height -170;
 	var minX = 70;
     var minY = 70;
+
+    var map = new Array; 
+    var mapValue = new Array;
 
     var maximumYValue = 0;
     for (let i=0; i<myCategories.length; i++){
@@ -154,8 +157,8 @@ ctx.beginPath();
 	ctx.lineTo(maxX-10,maxY+5);
 
 //Vertical Axis
-	ctx.moveTo(minX,maxY);
-	ctx.lineTo(minX,minY);
+	ctx.moveTo(minX,maxY+170); 
+    ctx.lineTo(minX,minY);
 
 //Vertical Axis Arrow
 	ctx.moveTo(minX-5,minY+10);
@@ -169,7 +172,7 @@ ctx.stroke();
     var noOfGrids = 5;
     var vGridDiff = (maxY - minY)/noOfGrids;
     ctx.font="12px Helvetica";
-    for (var i =1; i<noOfGrids;i++){
+    for (let i=-2; i<noOfGrids;i++){
         ctx.moveTo(minX,maxY-i*vGridDiff);
         ctx.lineTo(maxX,maxY-i*vGridDiff);
         ctx.fillText((i*maximumYValue/noOfGrids),20,maxY-i*vGridDiff);
@@ -189,24 +192,122 @@ ctx.stroke();
         var valuePleinTarif = (allData[0][i]*15*0.1) - (allData[1][i]*15);
         var valueTarifReduit = (allData[2][i]*15*0.1) - (allData[3][i]*15); 
 
-        
+            
         console.log("P = "+valuePleinTarif+", R = "+valueTarifReduit+"value total : "+(valuePleinTarif+valueTarifReduit));
+       
 
         ctx.fillStyle = "red"
+      
         ctx.fillRect(minX+(space*i*2)+space,maxY-((valuePleinTarif/maximumYValue)*maxHeight),space,(valuePleinTarif/maximumYValue)*maxHeight-1);
         
-       
+        map.push({x : minX+(space*i*2)+space, y : maxY-((valuePleinTarif/maximumYValue)*maxHeight), w : space, h : (valuePleinTarif/maximumYValue)*maxHeight-1 })
+        var mapValueTmp = {
+            "P" : allData[0][i],
+            "SA" : allData[1][i], 
+            "TarifP" : 15,
+            "TarifSA" : 15,
+            "Total" : valuePleinTarif
+        }
+
+        mapValue.push(mapValueTmp)
+        
         ctx.fillStyle = "blue"
-        ctx.fillRect(minX+(space*i*2)+space,maxY-(((valuePleinTarif+valueTarifReduit)/maximumYValue)*maxHeight),space,(valueTarifReduit/maximumYValue)*maxHeight-1);
-      
-        ctx.fillStyle = "black"
-        ctx.globalAlpha = 1;
-        ctx.fillText(""+(valuePleinTarif+valueTarifReduit), (minX+(space*i*2)) + 2*space, maxY-(((valuePleinTarif+valueTarifReduit)/maximumYValue)*maxHeight));
+        if(valueTarifReduit < 0 && valuePleinTarif > 0){
+            ctx.fillRect(minX+(space*i*2)+space,maxY-(((valueTarifReduit)/maximumYValue)*maxHeight),space,(valueTarifReduit/maximumYValue)*maxHeight-1);
+            map.push({x : minX+(space*i*2)+space, y : maxY-(((valueTarifReduit)/maximumYValue)*maxHeight), w : space, h : (valueTarifReduit/maximumYValue)*maxHeight-1 })
+            var mapValueTmp = {
+                "R" : allData[2][i],
+                "SJ" : allData[3][i], 
+                "TarifR" : 10,
+                "TarifSJ" : 10,
+                "Total" : valueTarifReduit
+            }
+            mapValue.push(mapValueTmp)
+        
+        }else{
+            ctx.fillRect(minX+(space*i*2)+space,maxY-(((valuePleinTarif+valueTarifReduit)/maximumYValue)*maxHeight),space,(valueTarifReduit/maximumYValue)*maxHeight-1);
+            map.push({x : minX+(space*i*2)+space, y : maxY-(((valuePleinTarif+valueTarifReduit)/maximumYValue)*maxHeight), w : space, h : (valueTarifReduit/maximumYValue)*maxHeight-1 })
+            var mapValueTmp = {
+                "R" : allData[2][i],
+                "SJ" : allData[3][i], 
+                "TarifR" : 15,
+                "TarifSJ" : 15,
+                "Total" : valueTarifReduit
+            }
+            mapValue.push(mapValueTmp)
+        
+        }
+
+//Test tooltip 
+    
+        
+       
+       // ctx.globalAlpha = 1;
+      //  ctx.fillText(""+(valuePleinTarif+valueTarifReduit), (minX+(space*i*2)) + 2*space, maxY-(((valuePleinTarif+valueTarifReduit)/maximumYValue)*maxHeight));
 
     }
+    console.log(map)
+    console.log(mapValue)
+
     ctx.closePath();
     ctx.stroke();
     ctx.fill();
+
+    canvas.onmousemove = function(e) {
+        // Get the current mouse position
+        var r = canvas.getBoundingClientRect(),
+            x = e.clientX - r.left, y = e.clientY - r.top;
+            
+    
+        for(var i = 0; i < map.length; i++) {
+            b = map[i];
+            if((x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) ||
+                (x >= b.x && x <= b.x + b.w && y <= b.y && y >= b.y + b.h) ) {
+                // The mouse honestly hits the rect then creat the tooltip
+                if(i % 2 == 0){
+                    ctx.beginPath();
+                    ctx.strokeStyle = "balck";
+                    ctx.stroke();
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(maxX/2, 0, 200, 100);
+
+                    ctx.fillText("RECETTE/DEPENCE PLEIN TARIF : ",  maxX/2 +6, 20, 200);
+                    ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  maxX/2+6, 40, 200);
+                    ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  maxX/2+6, 55, 200);
+                    ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  maxX/2+6, 70, 200);
+                    if(mapValue[i]['Total']> 0){
+                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  maxX/2 +6, 90, 200);
+                    }else {
+                        ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  maxX/2 +6, 90, 200);
+                    
+                    } 
+                }else{
+                    ctx.beginPath();
+                    ctx.strokeStyle = "balck";
+                    ctx.stroke();
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(maxX/2, 0, 200, 100);
+
+                    ctx.fillText("RECETTE/DEPENCE TARIF REDUIT : ",  maxX/2 +6, 20, 200);
+                    ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'],  maxX/2+6, 40, 200);
+                    ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'],  maxX/2+6, 55, 200);
+                    ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  maxX/2+6, 70, 200);
+                    if(mapValue[i]['Total']> 0){
+                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  maxX/2 +6, 90, 200);
+                    }else {
+                        ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  maxX/2 +6, 90, 200);
+                    
+                    }
+                }
+                
+                
+
+                break;
+            }else {
+                ctx.clearRect(maxX/2 -8, 0, 210, 110);
+            }
+        }
+    }
 
 }
 
