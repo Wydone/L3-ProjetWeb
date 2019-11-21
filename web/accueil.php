@@ -52,7 +52,10 @@
     <main>
 		<div class="decalage">
 			<?php
-				echo "<p class=\"msgValidationErreurPanier\">".$_GET['msgValidation']."</p>";		
+				if(isset($_GET['msgValidation'])){
+					echo "<p class=\"msgValidationErreurPanier\">".$_GET['msgValidation']."</p>";	
+				}
+					
 			?>
 		</div>
     </main>

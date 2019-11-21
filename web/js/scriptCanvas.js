@@ -120,12 +120,12 @@ function loadChart(){
    		
     canvas = document.getElementById("myCanvas");
     canvas.width = 800;
-    canvas.height = 600;
+    canvas.height = 800;
 	ctx = canvas.getContext("2d");
     ctx.fillStyle = "#000;"
     
     var maxX = canvas.width -70;
-	var maxY = canvas.height -170;
+	var maxY = canvas.height -370;
 	var minX = 70;
     var minY = 70;
 
@@ -196,6 +196,27 @@ ctx.stroke();
 
         var valuePleinTarif = (allData[0][i]*15*0.1) - (allData[1][i]*15);
         var valueTarifReduit = (allData[2][i]*15*0.1) - (allData[3][i]*15); 
+
+    //Add the lablel for the X Axis
+  //  context.save();
+   // ctx.translate(minX+(space*i*2)+space, 100);
+   
+    //ctx.textAlign = "center";
+    ctx.save();
+    ctx.fillStyle = "black"
+    ctx.translate( minX+(space*i*2), maxY+270);
+    ctx.rotate(-Math.PI / 2.8);
+
+   
+    ctx.fillText(myCategories[i],0,  0);
+
+    ctx.restore();
+
+    //ctx.fillStyle = 'red';
+   //ctx.fillRect(x, y, 2, 2);
+
+   // ctx.stroke();
+
 
             
         console.log("P = "+valuePleinTarif+", R = "+valueTarifReduit+"value total : "+(valuePleinTarif+valueTarifReduit));
