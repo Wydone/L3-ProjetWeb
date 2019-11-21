@@ -11,16 +11,42 @@ var y;
 var myCategories = new Array ; // contient les différents item de la bar de l'axe x
 var myItemNames = ["P","SA", "R","SJ"];
 var allData = new Array;
+var typeCategorie ; 
 
 var pleinTarif = 15; 
 var tarifReduit = 10; 
 
 function main(){
     $(document).ready(function() {
-      
-        $.get('data/test.csv', function(csvFile) {
-            parseDataCSV(csvFile);
-        });
+
+        var btn_compagnie  = document.getElementById("btn_radio1");
+        var btn_lieu  = document.getElementById("btn_radio2");
+        var btn_representation  = document.getElementById("btn_radio3");
+
+        btn_compagnie.addEventListener('change', function(){
+            typeCategorie = "compagnie";  
+            console.log(typeCategorie)
+            $.get('data/test.csv', function(csvFile) {
+                myCategories = new Array
+                parseDataCSV(csvFile);
+            });
+        }); 
+        btn_lieu.addEventListener('change', function(){
+            typeCategorie = "lieu";  
+            console.log(typeCategorie)
+            $.get('data/test.csv', function(csvFile) {
+                myCategories = new Array
+                parseDataCSV(csvFile);
+            });
+        }); 
+        btn_representation.addEventListener('change', function(){
+            typeCategorie = "representation"; 
+            console.log(typeCategorie) 
+            $.get('data/test.csv', function(csvFile) {
+                myCategories = new Array
+                parseDataCSV(csvFile);
+            });
+        }); 
     });
 }
 
@@ -49,10 +75,20 @@ function parseDataCSV(csvFile) {
             var SA = items[10];
             var E = items[11];
 
-            
-            if(! myCategories.includes(Compagnie)){
-                myCategories.push(Compagnie); 
+            if(typeCategorie == "compagnie"){
+                if(! myCategories.includes(Compagnie)){
+                    myCategories.push(Compagnie); 
+                }
+            }else if (typeCategorie =="lieu"){
+                if(! myCategories.includes(Lieu)){
+                    myCategories.push(Lieu); 
+                }
+            }else{
+                if(! myCategories.includes(Titre)){
+                    myCategories.push(Titre); 
+                }
             }
+           
         }
     });
 
@@ -92,12 +128,29 @@ function parseDataCSV(csvFile) {
         
 
             for(let i = 0; i < myCategories.length; i++){
-                if(myCategories[i] == Compagnie){
-                    allData[0][i] += parseInt(P) ; // = P de la catégorie
-                    allData[1][i] += parseInt(SA) ; // = P de la catégorie
-                    allData[2][i] += parseInt(R) ; // = P de la catégorie
-                    allData[3][i] += parseInt(SJ) ; // = P de la catégorie
+                if(typeCategorie == "compagnie"){
+                    if(myCategories[i] == Compagnie){
+                        allData[0][i] += parseInt(P) ; // = P de la catégorie
+                        allData[1][i] += parseInt(SA) ; // = P de la catégorie
+                        allData[2][i] += parseInt(R) ; // = P de la catégorie
+                        allData[3][i] += parseInt(SJ) ; // = P de la catégorie
+                    }
+                }else if(typeCategorie == "lieu"){
+                    if(myCategories[i] == Lieu){
+                        allData[0][i] += parseInt(P) ; // = P de la catégorie
+                        allData[1][i] += parseInt(SA) ; // = P de la catégorie
+                        allData[2][i] += parseInt(R) ; // = P de la catégorie
+                        allData[3][i] += parseInt(SJ) ; // = P de la catégorie
+                    }
+                }else {
+                    if(myCategories[i] == Titre){
+                        allData[0][i] += parseInt(P) ; // = P de la catégorie
+                        allData[1][i] += parseInt(SA) ; // = P de la catégorie
+                        allData[2][i] += parseInt(R) ; // = P de la catégorie
+                        allData[3][i] += parseInt(SJ) ; // = P de la catégorie
+                    }
                 }
+               
                 
             }
         }
@@ -157,7 +210,7 @@ ctx.beginPath();
 	ctx.lineTo(maxX-10,maxY+5);
 
 //Vertical Axis
-	ctx.moveTo(minX,maxY+170); 
+	ctx.moveTo(minX,maxY+160); 
     ctx.lineTo(minX,minY);
 
 //Vertical Axis Arrow
@@ -184,7 +237,7 @@ ctx.stroke();
    
     ctx.beginPath();
 
-    var space = Math.trunc(maxX / (2*((myCategories.length) + 1)) ); 
+    var space = Math.trunc(maxX / (2*((myCategories.length) +2)) ); 
     //console.log(Math.trunc(space));
 
     //Resolution du bug de clignotement
@@ -204,11 +257,14 @@ ctx.stroke();
     //ctx.textAlign = "center";
     ctx.save();
     ctx.fillStyle = "black"
-    ctx.translate( minX+(space*i*2), maxY+270);
+    ctx.textAlign = 'right';
+    console.log(maxY)
+   
+    ctx.translate(minX+(space*i*2),maxY+270);
     ctx.rotate(-Math.PI / 2.8);
 
    
-    ctx.fillText(myCategories[i],0,  0);
+    ctx.fillText(myCategories[i],120, 0);
 
     ctx.restore();
 
