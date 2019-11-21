@@ -11,8 +11,10 @@
     <title>Theatres de Bourdon</title>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="js/scriptCanvas.js"></script>
+    <script src="js/scriptGraphique.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
 
 
 </head>
@@ -58,15 +60,7 @@
     <main>
         <div class="decalage">
             <h2> Mes graphiques</h2>
-			
-			<form id="grapheSelector">
-				<h3>Choisir un type de representation de grpahe</h3>
-				<input type="radio" id="btn_radio1" name="grapheType" value="compagnie"><label for="btn_radio1">Par compagnie</label><br>
-				<input type="radio" id="btn_radio2" name="grapheType" value="Lieu"><label for="btn_radio2">Par lieu</label><br>
-				<input type="radio" id="btn_radio3" name="grapheType" value="representation"><label for="btn_radio3">Par representation</label><br>
-			</form>
-            
-			<canvas id="myCanvas"></canvas>
+            <div id="container" style="height: 400px; min-width: 310px"></div>	
             
         </div>
     </main>
