@@ -29,8 +29,8 @@
     var_dump($reservationIntoCSV); 
     
     $row = 1; 
-    if($file = fopen("../data/test.csv", "r")){
-        echo $file;
+    if($file = fopen("../data/ResultatsFestivalTEST.csv", "r")){
+
         while(($line = fgetcsv($file, 1024, ",")) !== FALSE){
             if($row != 1){
                foreach ($reservationIntoCSV as $element){
@@ -46,24 +46,27 @@
 
                        //fwrite($file,$line);
                       
+                        $line[2] = "\"".$line[2]."\"";
                         $update	.= implode($separator,$line)."\r\n";
                         $ligneModifie = true ; 
                    }
                } 
                if (!$ligneModifie){
+                $line[2] = "\"".$line[2]."\"";
                     $update .= implode($separator,$line)."\r\n"; 
                }else {
                    $ligneModifie = false ;
                }
                
             }else {
+                $line[2] = "\"".$line[2]."\"";
                 $update .= implode($separator,$line)."\r\n"; 
             }
             $row++; 
         }
         fclose($file);
 
-        if( $edit = fopen("../data/test.csv", "w")){
+        if( $edit = fopen("../data/ResultatsFestivalTEST.csv", "w")){
             echo "Modification du CSV file"; 
             fwrite($edit, $update);
             fclose($edit);
@@ -80,7 +83,7 @@
     }
    
 
-    header('Location:../accueil.php?msgValidation='.$msg);
+    //header('Location:../accueil.php?msgValidation='.$msg);
 
 
 

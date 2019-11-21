@@ -26,7 +26,7 @@ function main(){
         btn_compagnie.addEventListener('change', function(){
             typeCategorie = "compagnie";  
             console.log(typeCategorie)
-            $.get('data/test.csv', function(csvFile) {
+            $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -34,7 +34,7 @@ function main(){
         btn_lieu.addEventListener('change', function(){
             typeCategorie = "lieu";  
             console.log(typeCategorie)
-            $.get('data/test.csv', function(csvFile) {
+            $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -42,7 +42,7 @@ function main(){
         btn_representation.addEventListener('change', function(){
             typeCategorie = "representation"; 
             console.log(typeCategorie) 
-            $.get('data/test.csv', function(csvFile) {
+            $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -56,11 +56,13 @@ function parseDataCSV(csvFile) {
 
     var data = []; 
     var lines = csvFile.split('\n'); 
-
+    var re = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/  //Regex expression
+    
     $.each(lines, function(lineNumero, line){
         
         if(lineNumero != 0 && line != ''){
-            var items = line.split(','); 
+            var items = line.split(re); 
+           
             //toutes les colonnes du CSV
             var Jour = items[0];
             var Heure = items[1];
@@ -77,6 +79,7 @@ function parseDataCSV(csvFile) {
 
             if(typeCategorie == "compagnie"){
                 if(! myCategories.includes(Compagnie)){
+                    console.log(Compagnie + " à la ligne : "+(lineNumero+1))
                     myCategories.push(Compagnie); 
                 }
             }else if (typeCategorie =="lieu"){

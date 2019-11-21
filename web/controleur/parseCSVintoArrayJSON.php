@@ -2,7 +2,7 @@
     //This controleur is used for parse the CSV file into an multidimensional array JSON
 
     $row = 1; 
-    $file = fopen("../data/ResultatsFestival.csv", "r"); 
+    $file = fopen("../data/ResultatsFestivalTEST.csv", "r"); 
     
     $arrayInfoCSV = array()  ;  //contain the head of the CSV file
     $arrayData = array() ; // The csv data convert into a multidimensional array
