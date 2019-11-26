@@ -55,6 +55,15 @@
 
     <main>
         <div class="decalage">
+
+			<?php
+				session_start();
+				// Msg de validation de panier ! 
+				if(isset($_SESSION['msgValidation'])){
+					echo "<p class=\"msgValidationErreurPanier\">".$_GET['msgValidation']."</p>";	
+				}	
+			?>
+
 			<h1>Mon panier</h1>
 			<form id="formValiderPanier" name="validationPanier" action="controleur/addBilletIntoCSV.php" method="POST">
 			
