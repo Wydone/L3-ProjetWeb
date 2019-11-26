@@ -83,7 +83,7 @@
     }
    
 
-    //header('Location:../accueil.php?msgValidation='.$msg);
+    header('Location:../accueil.php?msgValidation='.$msg);
 
 
 
