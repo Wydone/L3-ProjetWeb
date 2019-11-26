@@ -13,7 +13,7 @@
 
    // print_r($arrayJour);
     foreach($arrayJour as $Jour){
-        
+        echo "<section class=\"section-block\">";
         echo "<h2>".$Jour."</h2>" ; 
         foreach($arrayData as $data) {
            
@@ -23,6 +23,7 @@
 
             //Affichage de l'auteur ????
         }
+        echo "</section>";
         echo "<br>";
     }
 

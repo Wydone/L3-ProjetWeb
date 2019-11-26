@@ -16,7 +16,7 @@
 
     foreach($arrayTroupe as $Troupe){
        
-        echo "<div class=\"Troupe\">"; 
+        echo "<section class=\"section-block\">";
         echo "<h2>".$Troupe."</h2>" ; //Affichage du nom de la troupe
 
         foreach($arrayData as $data){
@@ -29,5 +29,6 @@
 
             }
         }
+        echo "</section>";
     }
 ?>

@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon</h1>
+        <h1>Festival Théâtres de Bourdon : tarifs</h1>
     </div>
 
     <nav class="nav-top">

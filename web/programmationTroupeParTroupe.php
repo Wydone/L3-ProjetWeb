@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon : Dans chaque lieu</h1>
+        <h1>Festival Théâtres de Bourdon : troupe par troupe</h1>
     </div>
 
     <nav class="nav-top">
@@ -53,6 +53,8 @@
 
     <main>
         <div class="decalage">
+
+			<h1>Affichage de la programmation Troupe par Troupe</h1>
            
             <?php require_once('controleur/displayTroupeParTroupe.php');?>
 

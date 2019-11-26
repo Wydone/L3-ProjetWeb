@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon : jour après jour  </h1>
+        <h1>Festival Théâtres de Bourdon : jour après jour</h1>
     </div>
 
 	<nav class="nav-top">
@@ -51,8 +51,11 @@
 
     <main>
         <div class="decalage">
+			<h1>Affichage de la programmation Jour par Jour</h1>
+
             <?php require_once('controleur/displayJourParJour.php');?>
-        </div>
+		
+		</div>
     </main>
 
     <footer>

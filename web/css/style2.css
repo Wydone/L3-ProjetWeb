@@ -1,3 +1,15 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+   background-position-y: 80px;
+   background-repeat: repeat-y;
+}
+
+
+
 .section-block {
     background:#077bd2;
     border-radius:2em;
@@ -8,42 +20,62 @@
     background-color :#305370; /*bronze*/
 }
 
-.menu{
-    position: fixed;
-    left: 0em;
-     top: 4%;
-    bottom: 3%;
-    width:9em;
-    border:1px solid white;
-    background-color:#0f3187; /*bleu contraste*/
+.bandeau {
+    display: block;
+    background-color: #0f3187;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    opacity: 1;
+    border:none;
+    border-radius:0 ;
+    margin-left: -8px;
+    border-bottom: 2px solid black;
+    border-top: 1px solid black;
 }
 
-.nav-top{
+
+.menu{
     display: block;
+    background-color:#0f3187; /*bleu contraste*/
+    border : none ;
+    position: fixed;
+    bottom: auto;
+    height: auto;
+    top : 83px; 
+    height: 100%;
+    width: 9.5em;
 }
+
 
 .menu ul {
+    display: inline-block;
     padding: 0px;
     margin: 0px;
+    
 }
 
 .menu ul li {
-    display: block;
-    width:9em;
+    display: inline-block;
 	height: 40px;
-	margin-top: 18px;
-	text-align : center;
+	
+    text-align : center;
+    width:9.5em;
+    margin-bottom: 20px;
+
 }
 
 .menu ul li a{
     color: white;
 	text-decoration: none;
     font-weight: bold;
-    display: block;
-    width:9em;
+    display: inline-block;
+    width: 9.5em;
 	height: 40px;
-    padding-top : 18px;
-	text-align : center;
+    padding-top: 20px;
+    text-align : center;
+    border-bottom: 1px solid #305370;
 }
 
 .menu ul li:hover {
@@ -53,6 +85,87 @@
 .menu ul li a:hover {
     background-color: #077bd2 ;
 }   
+
+
+.selectInForm {
+    width: auto;
+    height: 26px;
+    border-radius: 8px;
+}
+
+option {
+    background-color: #dddddd;
+    border-radius: 10px;
+
+}
+
+
+.inputInForm {
+    width: auto;
+    height: 26px;
+    border-radius: 6px;
+    border-color: #dddddd;
+    background-color: #dddddd;
+
+}
+
+#btnNewReservation {
+    border-radius: 50%;
+    color: black;
+    border: none;
+    background-color: #dddddd;
+    font-size: 26px;
+    width: 34px;
+    float: right;
+    margin-right: 30px;
+}
+
+#inputSubmitFormReservation {
+    display : block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color : black;
+    font-size: 14px;
+    background-color: #dddddd;
+    border : none; 
+    border-radius: 4px;
+}
+
+#btnAjouterSpectacleDansPanier{
+    border-radius: 50%;
+    color: black;
+    border: none;
+    background-color: #dddddd;
+    font-size: 26px;
+    width: 34px;
+    float: right;
+    margin-right: 30px;   
+}
+
+#idValiderPanier {
+    display : block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color : black;
+    font-size: 14px;
+    background-color: #dddddd;
+    border : none; 
+    border-radius: 4px;
+}
+
+.btnSupprPanier {
+    display : block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color : black;
+    font-size: 16px;
+    background-color: #dddddd;
+    border : none; 
+    border-radius: 4px;
+}
 
 .msgErrorDistanceTimeForm {
     color: red;

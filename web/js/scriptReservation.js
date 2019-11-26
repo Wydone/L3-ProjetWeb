@@ -129,6 +129,7 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
             newSelect.name = allSelectName[0]+"-"+nbForm ; 
             newSelect.setAttribute("onchange", "relaodList(this,"+(nbForm)+")");
             newSelect.required = true;
+            newSelect.classList = "selectInForm" ; 
 
             for(let i = 0; i < arrayAllTitre.length ; i++){
                 var newOption = document.createElement("option");
@@ -162,6 +163,7 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
                 newSelect.name = allSelectName[j]+"-"+nbForm ; 
                 newSelect.setAttribute("onchange", "relaodList(this,"+(nbForm)+")");
                 newSelect.required = true;
+                newSelect.classList = "selectInForm" ; 
                   
                 oForm.insertBefore(newSelect, oSubmit);
                 linebreak = document.createElement("br");
@@ -189,6 +191,7 @@ function createForm(dataARRAY, arrayAllDate, arrayAllHoraire, arrayAllTitre, arr
                 nbPlaceTarifInput.setAttribute('min', 0);
                 nbPlaceTarifInput.setAttribute('max', 20);
                 nbPlaceTarifInput.required = true;
+                nbPlaceTarifInput.classList = "inputInForm" ; 
 
                 oForm.insertBefore(nbPlaceTarifInput, oSubmit);
                 linebreak = document.createElement("br");

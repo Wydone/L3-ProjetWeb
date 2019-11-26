@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon</h1>
+        <h1>Festival Théâtres de Bourdon : mon panier</h1>
     </div>
 
     <nav class="nav-top">
@@ -55,7 +55,7 @@
 
     <main>
         <div class="decalage">
-			<h2>Mon panier</h2>
+			<h1>Mon panier</h1>
 			<form id="formValiderPanier" name="validationPanier" action="controleur/addBilletIntoCSV.php" method="POST">
 			
 				<?php 
@@ -65,7 +65,7 @@
 						echo "Votre panier est vide ! Rendez vous sur le formulaire de reservation de billet dans le menu";
 						$cpt = 0;
 					}else {
-						var_dump($_SESSION["monPanier"]);
+						//var_dump($_SESSION["monPanier"]);
 						$cpt = 0;
 						
 						foreach($_SESSION["monPanier"] as $index=>$uneReservation){	
@@ -99,14 +99,14 @@
 							echo "<input id=\"id_arrayAllVillageOption\" name=\"arrayAllVillageOption-".$index."\" type=\"hidden\" value=\"".$uneReservation["arrayAllVillageOption-".$index]."\">";
 
 								
-							echo "<br><br>Plein Tarif (15€) : <input type=\"number\" id=\"id_P-".$index."\" name=\"P-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['P-'.$index].">";
-							echo "<br>Tarif Réduit (10€) : <input type=\"number\" id=\"id_R-".$index."\" name=\"R-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['R-'.$index].">";
-							echo "<br>Gratuit (enfant) : <input type=\"number\" id=\"id_E-".$index."\" name=\"E-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['E-'.$index].">";
+							echo "<br><br>Plein Tarif (15€) : <input class=\"inputInForm\" type=\"number\" id=\"id_P-".$index."\" name=\"P-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['P-'.$index].">";
+							echo "<br>Tarif Réduit (10€) : <input class=\"inputInForm\" type=\"number\" id=\"id_R-".$index."\" name=\"R-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['R-'.$index].">";
+							echo "<br>Gratuit (enfant) : <input class=\"inputInForm\" type=\"number\" id=\"id_E-".$index."\" name=\"E-".$index."\" min=\"0\" max=\"20\" value=".$uneReservation['E-'.$index].">";
 
 							echo "<input type=\"hidden\" id=\"id_O-".$index."\" name=\"O-".$index."\" min=\"0\" max=\"20\" value=\"0\">";
 						
 							
-							echo "<br><br><button id=\"btnSupprimerDuPanier-".$index."\" type=\"button\">Supprimer du panier</button>";
+							echo "<br><br><button class=\"btnSupprPanier\"  id=\"btnSupprimerDuPanier-".$index."\" type=\"button\">Supprimer du panier</button>";
 								
 							$cpt = max($cpt, $index);
 							echo "</section>"; 		

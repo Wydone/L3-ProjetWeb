@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon : Dans chaque lieu</h1>
+        <h1>Festival Théâtres de Bourdon : lieu par lieu</h1>
     </div>
 
     <nav class="nav-top">
@@ -53,6 +53,8 @@
 
     <main>
         <div class="decalage">
+			<h1>Affichage de la programmation Lieu par Lieu</h1>
+
             <h2>Quatres demeures de l'Allier, un musée et une église vous ouvrent leurs grilles pour assister aux représentations théâtrales.</h2>
         
             <p>Choissisez un lieu en cliquant sur son bouton (dans le menu de la page) pour voir la programmation qu'il accueille puis selectionnez les spectacles qui s'y jouent et vous intéresse. </p>

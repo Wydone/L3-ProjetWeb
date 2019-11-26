@@ -15,7 +15,7 @@
 </head>
 <body onload="main()">
     <div class="bandeau">
-        <h1>Festival Théâtres de Bourdon : Réservation de billets</h1>
+        <h1>Festival Théâtres de Bourdon : billets</h1>
     </div>
 
     <nav class="nav-top">
@@ -54,15 +54,20 @@
 
     <main>
         <div class="decalage">
+			<h1>Réservation de billets</h1>
+
 			<p>
 				ANNONCE IMPORTANTE : Pour 5 billets payants, le 6ème est offert !
 			<p>
-
-			<form id="formReservation" name="reservationBillet" action="controleur/addReservationIntoPanier.php" method="POST">
-				
-				<button id="btnNewReservation" type="button">+</button>
-				<input id ="inputSubmitFormReservation" type="submit" value="Ajouter au panier">
-            </form>
+			<section class="section-block">
+				<form id="formReservation" name="reservationBillet" action="controleur/addReservationIntoPanier.php" method="POST">
+			
+		
+					<button id="btnNewReservation" type="button">+</button>
+					<input id ="inputSubmitFormReservation" type="submit" value="Ajouter au panier">
+				</form>
+			</section>
+			
         </div>
     </main>
 
