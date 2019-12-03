@@ -16,6 +16,15 @@ var typeCategorie ;
 var pleinTarif = 15; 
 var tarifReduit = 10; 
 
+var map ; 
+var mapValue ;
+  
+  
+var maxX ;
+var maxY ;
+var minX ;
+var minY ;
+
 function main(){
     $(document).ready(function() {
 
@@ -169,6 +178,7 @@ function parseDataCSV(csvFile) {
 
 
     loadChart();  
+    drawTooltip(); 
      
 }
 
@@ -180,13 +190,13 @@ function loadChart(){
 	ctx = canvas.getContext("2d");
     ctx.fillStyle = "#000;"
     
-    var maxX = canvas.width -70;
-	var maxY = canvas.height -370;
-	var minX = 70;
-    var minY = 70;
+    maxX = canvas.width -70;
+	maxY = canvas.height -370;
+	minX = 70;
+    minY = 70;
 
-    var map = new Array; 
-    var mapValue = new Array;
+    map = new Array; 
+    mapValue = new Array;
 
     var maximumYValue = 0;
     for (let i=0; i<myCategories.length; i++){
@@ -324,8 +334,12 @@ ctx.stroke();
         }
     }
 
-//Ajout de la ToolTip (bulle interactive)
-    
+    //Ajout de la ToolTip (bulle interactive)
+  
+}
+
+function drawTooltip() {
+    console.log(map)
     canvas.onmousemove = function(e) {
         // Get the current mouse position
         var r = canvas.getBoundingClientRect(),
@@ -337,67 +351,80 @@ ctx.stroke();
             if((x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) ||
                 (x >= b.x && x <= b.x + b.w && y <= b.y && y >= b.y + b.h) ) {
                 // The mouse honestly hits the rect then creat the tooltip
-                
+
                 if(i % 2 != 0){
 
-                  //  ctx.beginPath();
-                    ctx.strokeStyle = "balck";
-                    
-                    ctx.lineWidth = 2;
-                    ctx.strokeRect(maxX/3, 0, 210, 100);
+                    //  ctx.beginPath();
+                      ctx.strokeStyle = "balck";
+                      ctx.fillStyle = "#DCDCDC";
+                      
+                      ctx.lineWidth = 2;
+                      ctx.fillRect(x+10, y, 190, -100);
+                      ctx.strokeRect(x+10, y, 190, -100);
+  
+                      ctx.font="12px Helvetica";
+                      ctx.fillStyle = "black";
+  
+                      if(mapValue[i]['Total']> 0){
 
-                    ctx.font="12px Helvetica";
-                    ctx.fillStyle = "black";
-
-                    if(mapValue[i]['Total']> 0){
-                        ctx.fillText("RECETTES PLEIN TARIF",  maxX/3 +6, 20, 200);
-                        ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  maxX/3+6, 40, 200);
-                        ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  maxX/3+6, 55, 200);
-                        ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  maxX/3+6, 70, 200);
-                    
-                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  maxX/3 +6, 90, 200);
+                        ctx.fillText("RECETTES PLEIN TARIF",  x+10 +6, y-80);
+                        ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  x+10+6, y-60);
+                        ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  x+10+6, y-45);
+                        ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  x+10+6, y-30);
+                      
+                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
                     }else {
-                        ctx.fillText("DEPENSES PLEIN TARIF",  maxX/3 +6, 20, 200);
-                        ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  maxX/3+6, 40, 200);
-                        ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  maxX/3+6, 55, 200);
-                        ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  maxX/3+6, 70, 200);
-                    
-                        ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  maxX/3 +6, 90, 200);
-                    
+
+                          ctx.fillText("DEPENSES PLEIN TARIF",  x+10 +6, y-80);
+                          ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  x+10+6,y-60);
+                          ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  x+10+6, y-45);
+                          ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  x+10+6, y-30);
+                      
+                          ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
+                      
                     } 
                 }else{
-                   // ctx.beginPath();
                     ctx.strokeStyle = "balck";
-                   
+                    ctx.fillStyle = "#DCDCDC";
+                    
+                        
                     ctx.lineWidth = 2;
-                    ctx.strokeRect(maxX/3, 0, 210, 100);
+                    ctx.fillRect(x+10, y, 190, -100);
+                    ctx.strokeRect(x+10, y, 190, -100);
 
                     ctx.font="12px Helvetica";
                     ctx.fillStyle = "black";
+                   
                     if(mapValue[i]['Total']> 0){
-                        ctx.fillText("RECETTES TARIF REDUIT",  maxX/3 +6, 20, 200);
-                        ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'],  maxX/3+6, 40, 200);
-                        ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'],  maxX/3+6, 55, 200);
-                        ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  maxX/3+6, 70, 200);
-                    
-                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  maxX/3 +6, 90, 200);
-                    }else {
-                        ctx.fillText("DEPENSES TARIF REDUIT",  maxX/3 +6, 20, 200);
-                        ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'],  maxX/3+6, 40, 200);
-                        ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'],  maxX/3+6, 55, 200);
-                        ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  maxX/3+6, 70, 200);
-                    
-                        ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  maxX/3 +6, 90, 200);
-                    
-                    }
-                }
+                          ctx.fillText("RECETTES TARIF REDUIT",  x+10 +6, y-80);
+                          ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'],  x+10+6, y-60);
+                          ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'],  x+10+6, y-45);
+                          ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  x+10+6, y-30);
+                      
+                          ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
+                      }else {
+                          ctx.fillText("DEPENSES TARIF REDUIT", x+10+6, y-80);
+                          ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'],  x+10+6, y-60);
+                          ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'],  x+10+6, y-45);
+                          ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  x+10+6, y-30);
+                      
+                          ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
+                      
+                      }
+                  }
+                  
                 
                 break;
             }else {
                 tooltip = false;
-                ctx.clearRect(maxX/3 -8, 0, 220, 110);
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+                loadChart();
+                console.log("test")
+               // loadChart(); 
             }
+
         }
+        
     }
     ctx.closePath();
     ctx.stroke();

@@ -68,7 +68,6 @@
 			<form id="formValiderPanier" name="validationPanier" action="controleur/addBilletIntoCSV.php" method="POST">
 			
 				<?php 
-					session_start();
 					
 					if(!isset($_SESSION["monPanier"])){
 						echo "Votre panier est vide ! Rendez vous sur le formulaire de reservation de billet dans le menu";
