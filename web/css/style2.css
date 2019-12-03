@@ -8,8 +8,7 @@ body {
    background-repeat: repeat-y;
 }
 
-
-
+/* mise en forme des block de contenu */
 .section-block {
     background:#077bd2;
     border-radius:2em;
@@ -35,7 +34,7 @@ body {
     border-top: 1px solid black;
 }
 
-
+/* MENU ----------------------------------------------------------------------- */
 .menu{
     display: block;
     background-color:#0f3187; /*bleu contraste*/
@@ -87,6 +86,39 @@ body {
 }   
 
 
+/* OLD BALISE INTO CLASS ------------------------------------------------------ */
+
+.titrespectacle{
+    text-transform: uppercase;
+    font-size:95%;
+    font-weight: bold;
+    color:white;
+    color: orange;
+}
+
+.horaire{
+    font-weight: bold;
+    
+}
+
+.lieu{	
+    font-weight: normal;
+    
+}
+
+.troupe {
+    
+}
+
+.auteur{
+    font-family: italic;
+/*	color: black;*/
+}
+
+
+
+
+/* RESERVATION BILLET + PANIER ------------------------------------------------ */
 .selectInForm {
     width: auto;
     height: 26px;

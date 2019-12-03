@@ -37,7 +37,7 @@
 
                 foreach($arrayData as $data) {
                     if($data['Lieu'] ==$Lieu){
-                        echo "<p><horaire>".$data['Jour']."</horaire> à <horaire>".$data['Heure']."</horaire>, <troupe>".$data['Compagnie']."</troupe> présente <titrespectacle>".$data['TitreSpectacle']."</titrespectacle></p>";
+                        echo "<p><span class=\"horaire\"><horaire>".$data['Jour']."</horaire></span> à <span class=\"horaire\"><horaire>".$data['Heure']."</horaire></span>, <span class=\"troupe\"><troupe>".$data['Compagnie']."</troupe></span> présente <span class=\"titrespectacle\"><titrespectacle>".$data['TitreSpectacle']."</titrespectacle></span></p>";
                         // AUTEUR ?????
                     }
                 }
