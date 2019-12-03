@@ -1,4 +1,4 @@
-
+//Var that i need in draw/load graphe + draw tooltip
 var canvas ;
 var context ;
 var Val_Max;
@@ -16,21 +16,29 @@ var typeCategorie ;
 var pleinTarif = 15; 
 var tarifReduit = 10; 
 
+//variable that i need in the tooltip draw function
 var map ; 
 var mapValue ;
-  
-  
 var maxX ;
 var maxY ;
 var minX ;
 var minY ;
 
+//Main 
 function main(){
     $(document).ready(function() {
 
         var btn_compagnie  = document.getElementById("btn_radio1");
         var btn_lieu  = document.getElementById("btn_radio2");
         var btn_representation  = document.getElementById("btn_radio3");
+
+        //Default print 
+        typeCategorie = "compagnie";  
+        console.log(typeCategorie)
+        $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
+            myCategories = new Array
+            parseDataCSV(csvFile);
+        });
 
         btn_compagnie.addEventListener('change', function(){
             typeCategorie = "compagnie";  
@@ -169,20 +177,19 @@ function parseDataCSV(csvFile) {
     });
 
 
+    /*
     console.log(myCategories); 
     console.log(myItemNames); 
     console.log(allData);
-   // console.log(allData[]);
-   
-    
+    console.log(allData[]);
+    */
 
-
-    loadChart();  
-    drawTooltip(); 
+    drawChart();  // call function -> draw graphe   
+    drawTooltip(); // call function -> draw tooltip
      
 }
 
-function loadChart(){
+function drawChart(){
    		
     canvas = document.getElementById("myCanvas");
     canvas.width = 800;
@@ -198,6 +205,8 @@ function loadChart(){
     map = new Array; 
     mapValue = new Array;
 
+
+    //Initialisation de la val max de notre graphe pour déterminer l'echelle du graphe
     var maximumYValue = 0;
     for (let i=0; i<myCategories.length; i++){
 
@@ -210,30 +219,30 @@ function loadChart(){
     }
     maximumYValue = (Math.trunc(maximumYValue/100) + 1) * 100;    
     
-ctx.beginPath();
-//Horizontal Axis
-	ctx.lineWidth=2.0;
-	ctx.lineCap = 'round';
-	ctx.moveTo(minX,maxY);
-	ctx.lineTo(maxX,maxY);
+    ctx.beginPath();
+    //Horizontal Axis -> DRAW
+        ctx.lineWidth=2.0;
+        ctx.lineCap = 'round';
+        ctx.moveTo(minX,maxY);
+        ctx.lineTo(maxX,maxY);
 
-//Horizontal Axis Arrow
-	ctx.moveTo(maxX-10,maxY-5);
-	ctx.lineTo(maxX,maxY);
-	ctx.lineTo(maxX-10,maxY+5);
+    //Horizontal Axis Arrow -> DRAW
+        ctx.moveTo(maxX-10,maxY-5);
+        ctx.lineTo(maxX,maxY);
+        ctx.lineTo(maxX-10,maxY+5);
 
-//Vertical Axis
-	ctx.moveTo(minX,maxY+160); 
-    ctx.lineTo(minX,minY);
+    //Vertical Axis -> DRAW
+        ctx.moveTo(minX,maxY+160); 
+        ctx.lineTo(minX,minY);
 
-//Vertical Axis Arrow
-	ctx.moveTo(minX-5,minY+10);
-	ctx.lineTo(minX,minY);
-	ctx.lineTo(minX+5,minY+10);
-ctx.stroke();
+    //Vertical Axis Arrow -> DRAW
+        ctx.moveTo(minX-5,minY+10);
+        ctx.lineTo(minX,minY);
+        ctx.lineTo(minX+5,minY+10);
+    ctx.stroke();
     
 
-    //Min Ticks DRaw lines
+    //Min Ticks DRAW lines
     ctx.lineWidth = 0.5;
     var noOfGrids = 5;
     var vGridDiff = (maxY - minY)/noOfGrids;
@@ -251,16 +260,15 @@ ctx.stroke();
     ctx.beginPath();
 
     var space = Math.trunc(maxX / (2*((myCategories.length) +2)) ); 
-    //console.log(Math.trunc(space));
 
-    //Resolution du bug de clignotement
+    //ADD valeurs dans mon map qui permet de stoker toutes les valuers des positions de tout mes rectangles de mon chart
     map.push({x : 0, y : 0, w : 0, h : 0})
     var mapValueTmp = {}
     mapValue.push(mapValueTmp)
 
-    //Ajout de la legende 
+    //ADD legende   
     ctx.save();
-        ctx.strokeRect(maxX-200, 0, 200, 62);
+        ctx.strokeRect(maxX-200, 0, 210, 62);
         ctx.fillStyle = "red"
         ctx.fillRect(maxX-190, 6, 20, 20)
         ctx.fillStyle = "black"
@@ -273,11 +281,11 @@ ctx.stroke();
     ctx.restore();
 
 
+
     for (let i =0; i<myCategories.length; i++){
 
         var valuePleinTarif = (allData[0][i]*15*0.1) - (allData[1][i]*15);
         var valueTarifReduit = (allData[2][i]*15*0.1) - (allData[3][i]*15); 
-
 
     //Add the lablel for the X Axis
         ctx.save();
@@ -289,12 +297,13 @@ ctx.stroke();
         ctx.restore();
     
     
-        console.log("P = "+valuePleinTarif+", R = "+valueTarifReduit+"value total : "+(valuePleinTarif+valueTarifReduit));
+        //console.log("P = "+valuePleinTarif+", R = "+valueTarifReduit+"value total : "+(valuePleinTarif+valueTarifReduit));
        
+        // ajout des différent rectangle en fonction de mes données
         ctx.fillStyle = "red"
-      
         ctx.fillRect(minX+(space*i*2)+space,maxY-((valuePleinTarif/maximumYValue)*maxHeight),space,(valuePleinTarif/maximumYValue)*maxHeight-1);
         
+        //Ajout des coordonnées dans ma MAP array (coordonnées de mes rectangles) et des valeurs dans mapValue (stocker les valeurs de chaque rectngles)
         map.push({x : minX+(space*i*2)+space, y : maxY-((valuePleinTarif/maximumYValue)*maxHeight), w : space, h : (valuePleinTarif/maximumYValue)*maxHeight-1 })
         var mapValueTmp = {
             "P" : allData[0][i],
@@ -303,11 +312,11 @@ ctx.stroke();
             "TarifSA" : 15,
             "Total" : valuePleinTarif
         }
-
         mapValue.push(mapValueTmp)
         
         ctx.fillStyle = "blue"
-        if(valueTarifReduit < 0 && valuePleinTarif > 0){
+        if(valueTarifReduit < 0 && valuePleinTarif > 0){ //Test pour avoir un affichage propre
+
             ctx.fillRect(minX+(space*i*2)+space,maxY-(((valueTarifReduit)/maximumYValue)*maxHeight),space,(valueTarifReduit/maximumYValue)*maxHeight-1);
             map.push({x : minX+(space*i*2)+space, y : maxY-(((valueTarifReduit)/maximumYValue)*maxHeight), w : space, h : (valueTarifReduit/maximumYValue)*maxHeight-1 })
             var mapValueTmp = {
@@ -333,9 +342,6 @@ ctx.stroke();
         
         }
     }
-
-    //Ajout de la ToolTip (bulle interactive)
-  
 }
 
 function drawTooltip() {
@@ -418,9 +424,9 @@ function drawTooltip() {
             }else {
                 tooltip = false;
                 ctx.clearRect(0,0, canvas.width, canvas.height);
-                loadChart();
-                console.log("test")
-               // loadChart(); 
+                drawChart();
+                
+              
             }
 
         }

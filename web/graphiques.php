@@ -61,7 +61,7 @@
 			
 			<form id="grapheSelector">
 				<h3>Choisir un type de representation de grpahe</h3>
-				<input type="radio" id="btn_radio1" name="grapheType" value="compagnie"><label for="btn_radio1">Par compagnie</label><br>
+				<input type="radio" id="btn_radio1" name="grapheType" value="compagnie" checked><label for="btn_radio1">Par compagnie</label><br>
 				<input type="radio" id="btn_radio2" name="grapheType" value="Lieu"><label for="btn_radio2">Par lieu</label><br>
 				<input type="radio" id="btn_radio3" name="grapheType" value="representation"><label for="btn_radio3">Par representation</label><br>
 			</form>

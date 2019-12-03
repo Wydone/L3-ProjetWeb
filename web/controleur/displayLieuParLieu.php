@@ -1,4 +1,7 @@
 <?php
+
+    //Controleur php qui affiche le contenu des mes différentes array en utilisant les balises du css d'origine
+
     require_once('parseCSVintoArray.php');
     require_once('parseCSVintoArrayLieu.php');
 
@@ -13,12 +16,14 @@
     }
         
     foreach($arrayLieu as $Lieu){
-        echo "<div class=\"Lieu\">"; 
+
+       
         foreach($arrayDataLieu as $dataLieu){
 
             if($dataLieu['Lieu'] == $Lieu){
                     
-                //Affichage des specifications du lieu
+                //Affichage des specifications du 
+                echo "<div class=\"Lieu\">"; 
                 echo "<h2>".$dataLieu['Village']."</h2>" ;
                 echo "<p>".$dataLieu['Distance']."</p>";
                 echo "<h2>".$Lieu."</h2>";
@@ -36,10 +41,14 @@
                         // AUTEUR ?????
                     }
                 }
+                echo "</div>";
+                echo "</div>";
+                echo "<br>";
 
             }    
 
 
         }
+       
     }
 ?>

@@ -347,10 +347,12 @@ function checkDistance(nbForm) {
 
     //Test pour suprimer un message d'erreur eventuelle si l'utilisateur change d'avis après avoir été prévenu.
     var msgError = document.getElementById("msgErrorForm"+"-"+nbForm)
+   // console.log(msgError)
     if(msgError != null){
         msgError.remove();
     }
 
+    console.log(sousFormulaireSelectedOption)
     //Parcours de toutes les reservations en cours 
     for(let j=0; j<sousFormulaireSelectedOption.length; j++){
 
@@ -376,6 +378,9 @@ function checkDistance(nbForm) {
                     cible = false;
                 }
 
+
+                console.log("SOURCE : " +TitreSource + " et ma cible : "+ TitreCible); 
+
                 $.ajax({    //ici on va utiliser ajax pour appeler notre service web 
 
                     url: "controleur/serviceWebDistance.php",
@@ -395,8 +400,8 @@ function checkDistance(nbForm) {
                         var totalHeure = 0;
                         var nbHeureSup = 0; 
                         
-                        console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible"+tmpHeureCible[0])
-                        console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source"+tmpHeureSource[0])
+                        console.log("nbMinute de cible : "+tmpHeureCible[1] + " , nbHeure de cible : "+tmpHeureCible[0])
+                        console.log("nbMinute de source : "+tmpHeureSource[1] + " , nbHeure de source : "+tmpHeureSource[0])
 
                         //Traitement du temps total pour regarder le spectacle et ce rendre à l'autre.
                         if(cible){
@@ -431,19 +436,32 @@ function checkDistance(nbForm) {
                         msgError.classList = "msgErrorDistanceTimeForm";
                         msgError.id = "msgErrorForm"+"-"+nbForm;
 
+                        /*
+                        console.log("totalHeure : "+totalHeure)
+                        console.log("totalMinute : "+totalMinute)
+
+                        console.log("tmpHeureSource : "+tmpHeureSource[0])
+                        console.log("tmpMinuteSource : "+tmpHeureSource[1])
+
+                        console.log("tmpHeureCible : "+tmpHeureCible[0])
+                        console.log("tmpMinuteCible : "+tmpHeureCible[1])
+                        
+                        console.log("boolean : "+ cible)
+                        */
+
 
                         //TEST pour voir si l'utilisateur peut ce rendre au spectacle 
-                        if(!cible){ //Si le spectacle qui commence en 1er est la cible
-                            if(totalHeure > parseInt(tmpHeureSource[0]) && totalMinute > parseInt(tmpHeureSource[1])){
-                            
-                                msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleCible.value + " , en même temps que celui-ci"
-                                oForm.insertBefore(msgError, spectacleLabelSource)         
+                        if(cible){ //Si le spectacle qui commence en 1er est la cible
+                            if(totalHeure >= parseInt(tmpHeureSource[0]) && totalMinute >= parseInt(tmpHeureSource[1])){
+
+                                msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
+                                oForm.insertBefore(msgError, spectacleLabelCible)         
                             }
                         }else{ //Si le spectacle qui commence en 1er est la source
-                            if(totalHeure > parseInt(tmpHeureCible[0]) && totalMinute > parseInt(tmpHeureCible[1])){
-                               
-                                msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleSource.value + " , en même temps que celui-ci"
-                                oForm.insertBefore(msgError, spectacleLabelCible)
+                            if(totalHeure >= parseInt(tmpHeureCible[0]) && totalMinute >= parseInt(tmpHeureCible[1])){
+                              
+                                msgError.innerHTML = "ATTENTION vous ne pourrez pas vous rendre au spectacle : "+spectacleCible.value + " , en même temps que celui-ci"
+                                oForm.insertBefore(msgError, spectacleLabelSource)
                             }
                         }
 
