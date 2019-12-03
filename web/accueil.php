@@ -64,7 +64,7 @@
 					Molière<!--</a>-->,					
 					<!-- <a href="Festival2018ProgrammationParSpectacle.php#labelSpectacle_10372              z">-->Shakespeare
 					<!--</a>-->...) 
-					aux créations <a href="Festival2018ProgrammationParSpectacle.php#labelSpectacle_10402              z">les plus originales</a>,
+					aux créations <a href="Festival2018ProgrammationParSpectacle.php#labelSpectacle_10402z">les plus originales</a>,
 			</h2>
 			<h2> En plein air, les pieds dans l'herbe mais dans <a href="Festival2018ProgrammationParLieu.php">des cadres exceptionnels</a>, </h2>
 			<h2> <a href="Festival2019Tarifs.php">en toute simplicité</a>, chaleur et convivialité, <a href="Festival2018ProgrammationParLieu.php">au cœur de la France</a>.</h2>

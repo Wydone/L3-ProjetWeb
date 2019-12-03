@@ -49,7 +49,6 @@
 		</div>
 	</nav>
 
-    </div>
 
     <main>
         <div class="decalage">
@@ -60,12 +59,7 @@
             <p>Choissisez un lieu en cliquant sur son bouton (dans le menu de la page) pour voir la programmation qu'il accueille puis selectionnez les spectacles qui s'y jouent et vous intéresse. </p>
 
             <figure>
-						<img  	src="images/kje.jpg"                                                                                                                   
-								alt=" Infographie Pour Situer les châteaux sur la carte du département "
-							width=100%
-							height=100%
-							id="localisation"
-						>
+						<img src="images/kje.jpg" alt=" Infographie Pour Situer les châteaux sur la carte du département " width="100%" height="100%" id="localisation">
 						<figcaption>Photocomposition:Edmée Deusy</figcaption>
 			</figure>
 

@@ -49,8 +49,6 @@
 		</div>
 	</nav>
 
-    </div>
-
     <main>
         <div class="decalage">
 
