@@ -145,8 +145,6 @@ function parseDataCSV(csvFile) {
             var SA = items[10];
             var E = items[11];
 
-        
-
             for(let i = 0; i < myCategories.length; i++){
                 if(typeCategorie == "compagnie"){
                     if(myCategories[i] == Compagnie){
@@ -169,13 +167,10 @@ function parseDataCSV(csvFile) {
                         allData[2][i] += parseInt(R) ; // = P de la catégorie
                         allData[3][i] += parseInt(SJ) ; // = P de la catégorie
                     }
-                }
-               
-                
+                }         
             }
         }
     });
-
 
     /*
     console.log(myCategories); 
@@ -204,7 +199,6 @@ function drawChart(){
 
     map = new Array; 
     mapValue = new Array;
-
 
     //Initialisation de la val max de notre graphe pour déterminer l'echelle du graphe
     var maximumYValue = 0;
@@ -280,8 +274,6 @@ function drawChart(){
         ctx.fillText("Recette/Depenses tarifs Réduit",  maxX-190 +26, 50, 200);
     ctx.restore();
 
-
-
     for (let i =0; i<myCategories.length; i++){
 
         var valuePleinTarif = (allData[0][i]*15*0.1) - (allData[1][i]*15);
@@ -295,10 +287,9 @@ function drawChart(){
             ctx.rotate(-Math.PI / 2.8);
             ctx.fillText(myCategories[i],120, 0);
         ctx.restore();
-    
-    
+      
         //console.log("P = "+valuePleinTarif+", R = "+valueTarifReduit+"value total : "+(valuePleinTarif+valueTarifReduit));
-       
+
         // ajout des différent rectangle en fonction de mes données
         ctx.fillStyle = "red"
         ctx.fillRect(minX+(space*i*2)+space,maxY-((valuePleinTarif/maximumYValue)*maxHeight),space,(valuePleinTarif/maximumYValue)*maxHeight-1);
@@ -339,7 +330,6 @@ function drawChart(){
                 "Total" : valueTarifReduit
             }
             mapValue.push(mapValueTmp)
-        
         }
     }
 }
@@ -351,7 +341,6 @@ function drawTooltip() {
         var r = canvas.getBoundingClientRect(),
             x = e.clientX - r.left, y = e.clientY - r.top;
             
-    
         for(var i = 0; i < map.length; i++) {
             b = map[i];
             if((x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) ||
@@ -386,14 +375,12 @@ function drawTooltip() {
                           ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  x+10+6, y-45);
                           ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  x+10+6, y-30);
                       
-                          ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
-                      
+                          ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  x+10+6, y-10); 
                     } 
                 }else{
                     ctx.strokeStyle = "balck";
                     ctx.fillStyle = "#DCDCDC";
-                    
-                        
+                         
                     ctx.lineWidth = 2;
                     ctx.fillRect(x+10, y, 190, -100);
                     ctx.strokeRect(x+10, y, 190, -100);
@@ -415,22 +402,15 @@ function drawTooltip() {
                           ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  x+10+6, y-30);
                       
                           ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
-                      
                       }
-                  }
-                  
-                
+                  } 
                 break;
             }else {
                 tooltip = false;
                 ctx.clearRect(0,0, canvas.width, canvas.height);
-                drawChart();
-                
-              
+                drawChart();          
             }
-
         }
-        
     }
     ctx.closePath();
     ctx.stroke();
