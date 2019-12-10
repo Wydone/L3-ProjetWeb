@@ -68,7 +68,7 @@
         }
         fclose($file);
 
-        if( $edit = fopen("../data/ResultatsFestivalTEST.csv", "w")){
+        if( $edit = fopen("../data/ResultatsFestivalTEMP.csv", "w")){
             echo "Modification du CSV file"; 
             fwrite($edit, $update);
             fclose($edit);
@@ -87,7 +87,7 @@
     $_SESSION["monPanier"] = NULL; 
    
 
-    header('Location:../accueil.php?msgValidation='.$msg);
+   // header('Location:../accueil.php?msgValidation='.$msg);
 
 
 

@@ -35,7 +35,7 @@ function main(){
         //Default print 
         typeCategorie = "compagnie";  
         console.log(typeCategorie)
-        $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
+        $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
             myCategories = new Array
             parseDataCSV(csvFile);
         });
@@ -43,7 +43,7 @@ function main(){
         btn_compagnie.addEventListener('change', function(){
             typeCategorie = "compagnie";  
             console.log(typeCategorie)
-            $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
+            $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -51,7 +51,7 @@ function main(){
         btn_lieu.addEventListener('change', function(){
             typeCategorie = "lieu";  
             console.log(typeCategorie)
-            $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
+            $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -59,7 +59,7 @@ function main(){
         btn_representation.addEventListener('change', function(){
             typeCategorie = "representation"; 
             console.log(typeCategorie) 
-            $.get('data/ResultatsFestivalTEST.csv', function(csvFile) {
+            $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
