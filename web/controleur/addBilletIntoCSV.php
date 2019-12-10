@@ -1,5 +1,7 @@
 <?php 
-    
+    session_start();
+
+
     $tmpCouple = array(); 
     $allTmpCouple = array (); 
     $reservationIntoCSV = array(); 
@@ -75,12 +77,14 @@
         }
         
 
-        $msg = "Panier validé";
+        $msg = "Votre panier a été validé";
 
     }else {
         echo "error ouverture csv file";
-        $msg = "une erreur détecté, panier non validé";
+        $msg = "Une erreur détecté, panier non validé";
     }
+
+    $_SESSION["monPanier"] = NULL; 
    
 
     header('Location:../accueil.php?msgValidation='.$msg);

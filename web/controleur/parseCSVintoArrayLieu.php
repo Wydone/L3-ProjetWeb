@@ -5,7 +5,7 @@
     $file = fopen("data/LieuParLieu.csv", "r"); 
 
     $arrayInfoCSVLieu = array()  ;  //contain the head of the CSV file
-    $arrayDataLieu = array() ; // The csv data convert into a multidiùensional array
+    $arrayDataLieu = array() ; // The csv data convert into a multidimensional array
     
      // temp array used to create arrayData
     $arrayDataTempLieu = array();  

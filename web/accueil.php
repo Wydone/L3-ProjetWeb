@@ -52,9 +52,13 @@
     <main>
 		<div class="decalage">
 			<?php
-				if(isset($_GET['msgValidation'])){
-					echo "<p class=\"msgValidationErreurPanier\">".$_GET['msgValidation']."</p>";	
-				}	
+					session_start();
+
+					//echo "Variable de session : ".$_SESSION['msgValidation'] ; 
+	
+					if(isset($_GET['msgValidation'])){
+						echo "<div class=\"boxValidationErreurPanier\"><p class=\"msgValidationErreurPanier\" >".$_GET['msgValidation']."<p></div>";	
+					}	
 			?>
 
 			<h1><a href="Festival2018ProgrammationVueGlobale.php">Du 2 au 6 août 2019</a></h1>

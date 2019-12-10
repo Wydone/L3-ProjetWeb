@@ -1,6 +1,7 @@
 html {
     margin: 0;
     padding: 0;
+    background-color: inherit;
 }
 
 body {
@@ -22,7 +23,7 @@ body {
 .bandeau {
     display: block;
     background-color: #0f3187;
-    width: 100%;
+    width: 110%;
     margin: 0;
     padding: 0;
     height: auto;
@@ -200,10 +201,21 @@ option {
 }
 
 .msgErrorDistanceTimeForm {
+
     color: red;
 }
 
 
-.msgValidationErreurPanier{
-    color: green;
+.boxValidationErreurPanier{
+    display: block;
+    width: 80%;
+    height: 45px;
+    border-radius: 10px;
+    background-color: green;
+}
+
+.msgValidationErreurPanier {
+    padding-top : 14px; 
+    color: greenyellow;
+          
 }

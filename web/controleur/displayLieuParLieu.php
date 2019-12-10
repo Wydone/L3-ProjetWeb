@@ -5,6 +5,7 @@
     require_once('parseCSVintoArray.php');
     require_once('parseCSVintoArrayLieu.php');
 
+
     $arrayLieu = array(); 
        
     foreach($arrayData as $prog){
@@ -14,13 +15,14 @@
             array_push($arrayLieu, $temp);
         }
     }
-        
-    foreach($arrayLieu as $Lieu){
 
+    foreach($arrayLieu as $Lieu){
        
         foreach($arrayDataLieu as $dataLieu){
-
+           
             if($dataLieu['Lieu'] == $Lieu){
+
+                //echo "Test valide : ".$Lieu;
                     
                 //Affichage des specifications du 
                 echo "<div class=\"Lieu\">"; 
@@ -44,11 +46,9 @@
                 echo "</div>";
                 echo "</div>";
                 echo "<br>";
-
             }    
 
 
         }
-       
     }
 ?>
