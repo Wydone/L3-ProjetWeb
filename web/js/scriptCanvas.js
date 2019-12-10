@@ -361,7 +361,7 @@ function drawTooltip() {
                       ctx.fillStyle = "black";
   
                       if(mapValue[i]['Total']> 0){
-
+                    
                         ctx.fillText("RECETTES PLEIN TARIF",  x+10 +6, y-80);
                         ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  x+10+6, y-60);
                         ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  x+10+6, y-45);
