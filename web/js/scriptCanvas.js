@@ -262,7 +262,7 @@ function drawChart(){
 
     //ADD legende   
     ctx.save();
-        ctx.strokeRect(maxX-200, 0, 210, 62);
+        ctx.strokeRect(maxX-200, 0, 230, 62);
         ctx.fillStyle = "red"
         ctx.fillRect(maxX-190, 6, 20, 20)
         ctx.fillStyle = "black"
@@ -337,6 +337,14 @@ function drawChart(){
 function drawTooltip() {
     console.log(map)
     canvas.onmousemove = function(e) {
+        var posXtool = 0 ; 
+        var posYtool = 0 ; 
+        var posXtoolTxt = 0 ; 
+        var posYtoolTxt = 0 ; 
+
+        var h = 0 ; 
+        var l= 0 ; 
+
         // Get the current mouse position
         var r = canvas.getBoundingClientRect(),
             x = e.clientX - r.left, y = e.clientY - r.top;
@@ -347,63 +355,73 @@ function drawTooltip() {
                 (x >= b.x && x <= b.x + b.w && y <= b.y && y >= b.y + b.h) ) {
                 // The mouse honestly hits the rect then creat the tooltip
 
-                if(i % 2 != 0){
+                posXtool = x+10; 
+                posYtool = y ; 
+
+                l = 220 ; 
+                h = -100; 
+
+                if ((posXtool + l) > maxX ) {
+                    posXtool = x - 230 ; 
+                }
+
+                posXtoolTxt = posXtool + 6 ; 
+                posYtoolTxt = y ; 
+                
+
+                if(i % 2 != 0){ //Testsi la tooltip est sur un rectangle de plein tarif ou sur un rectange de tarif réduit.                    
+
 
                     //  ctx.beginPath();
-                      ctx.strokeStyle = "balck";
-                      ctx.fillStyle = "#DCDCDC";
+                    ctx.strokeStyle = "balck";
+                    ctx.fillStyle = "#DCDCDC";
                       
-                      ctx.lineWidth = 2;
-                      ctx.fillRect(x+10, y, 190, -100);
-                      ctx.strokeRect(x+10, y, 190, -100);
+                    ctx.lineWidth = 2;
+                    ctx.fillRect(posXtool, y, l, h);
+                    ctx.strokeRect(posXtool, y, l, h);
   
-                      ctx.font="12px Helvetica";
-                      ctx.fillStyle = "black";
-  
-                      if(mapValue[i]['Total']> 0){
-                    
-                        ctx.fillText("RECETTES PLEIN TARIF",  x+10 +6, y-80);
-                        ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  x+10+6, y-60);
-                        ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  x+10+6, y-45);
-                        ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  x+10+6, y-30);
-                      
-                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
-                    }else {
+                    ctx.font="12px Helvetica";
+                    ctx.fillStyle = "black";
 
-                          ctx.fillText("DEPENSES PLEIN TARIF",  x+10 +6, y-80);
-                          ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'],  x+10+6,y-60);
-                          ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'],  x+10+6, y-45);
-                          ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'],  x+10+6, y-30);
-                      
-                          ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  x+10+6, y-10); 
+                    ctx.fillText("RECETTES PLEIN TARIF", posXtoolTxt, y-80);
+                    ctx.fillText("Nombre de ticket plein tarif : "+mapValue[i]['P'], posXtoolTxt, y-60);
+                    ctx.fillText("Nombre de ticket SA : "+mapValue[i]['SA'], posXtoolTxt, y-45);
+                    ctx.fillText("Prix des tickets : "+mapValue[i]['TarifP'], posXtoolTxt, y-30);
+                  
+  
+                    if(mapValue[i]['Total']> 0){
+                       
+                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €", posXtoolTxt, y-10);
+                    }else {
+                
+                        ctx.fillText("Depense total : "+mapValue[i]['Total']+" €", posXtoolTxt, y-10); 
                     } 
+
                 }else{
                     ctx.strokeStyle = "balck";
                     ctx.fillStyle = "#DCDCDC";
                          
                     ctx.lineWidth = 2;
-                    ctx.fillRect(x+10, y, 190, -100);
-                    ctx.strokeRect(x+10, y, 190, -100);
+                    ctx.fillRect(posXtool, y, l, h);
+                    ctx.strokeRect(posXtool, y, l, h);
 
                     ctx.font="12px Helvetica";
                     ctx.fillStyle = "black";
+
+                    ctx.fillText("RECETTES TARIF REDUIT", posXtoolTxt, y-80);
+                    ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'], posXtoolTxt, y-60);
+                    ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'], posXtoolTxt, y-45);
+                    ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'], posXtoolTxt, y-30);
                    
                     if(mapValue[i]['Total']> 0){
-                          ctx.fillText("RECETTES TARIF REDUIT",  x+10 +6, y-80);
-                          ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'],  x+10+6, y-60);
-                          ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'],  x+10+6, y-45);
-                          ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  x+10+6, y-30);
-                      
-                          ctx.fillText("Recette total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
-                      }else {
-                          ctx.fillText("DEPENSES TARIF REDUIT", x+10+6, y-80);
-                          ctx.fillText("Nombre de ticket tarif reduit : "+mapValue[i]['R'],  x+10+6, y-60);
-                          ctx.fillText("Nombre de ticket SJ : "+mapValue[i]['SJ'],  x+10+6, y-45);
-                          ctx.fillText("Prix des tickets : "+mapValue[i]['TarifR'],  x+10+6, y-30);
-                      
-                          ctx.fillText("Depense total : "+mapValue[i]['Total']+" €",  x+10+6, y-10);
-                      }
-                  } 
+                        
+                        ctx.fillText("Recette total : "+mapValue[i]['Total']+" €", posXtoolTxt, y-10);
+                    
+                    }else {
+      
+                        ctx.fillText("Depense total : "+mapValue[i]['Total']+" €", posXtoolTxt, y-10);
+                    }
+                } 
                 break;
             }else {
                 tooltip = false;
