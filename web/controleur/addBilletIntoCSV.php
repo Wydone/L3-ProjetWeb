@@ -31,7 +31,7 @@
     var_dump($reservationIntoCSV); 
     
     $row = 1; 
-    if($file = fopen("../data/ResultatsFestivalTEST.csv", "r")){
+    if($file = fopen("../data/ResultatsFestival.csv", "r")){
 
         while(($line = fgetcsv($file, 1024, ",")) !== FALSE){
             if($row != 1){
@@ -68,7 +68,7 @@
         }
         fclose($file);
 
-        if( $edit = fopen("../data/ResultatsFestivalTEMP.csv", "w")){
+        if( $edit = fopen("../data/ResultatsFestival.csv", "w")){
             echo "Modification du CSV file"; 
             fwrite($edit, $update);
             fclose($edit);

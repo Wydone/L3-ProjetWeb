@@ -35,7 +35,7 @@ function main(){
         //Default print 
         typeCategorie = "compagnie";  
         console.log(typeCategorie)
-        $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
+        $.get('data/ResultatsFestival.csv', function(csvFile) {
             myCategories = new Array
             parseDataCSV(csvFile);
         });
@@ -43,7 +43,7 @@ function main(){
         btn_compagnie.addEventListener('change', function(){
             typeCategorie = "compagnie";  
             console.log(typeCategorie)
-            $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
+            $.get('data/ResultatsFestival.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -51,7 +51,7 @@ function main(){
         btn_lieu.addEventListener('change', function(){
             typeCategorie = "lieu";  
             console.log(typeCategorie)
-            $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
+            $.get('data/ResultatsFestival.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -59,7 +59,7 @@ function main(){
         btn_representation.addEventListener('change', function(){
             typeCategorie = "representation"; 
             console.log(typeCategorie) 
-            $.get('data/ResultatsFestivalTEMP.csv', function(csvFile) {
+            $.get('data/ResultatsFestival.csv', function(csvFile) {
                 myCategories = new Array
                 parseDataCSV(csvFile);
             });
@@ -145,9 +145,14 @@ function parseDataCSV(csvFile) {
             var SA = items[10];
             var E = items[11];
 
+            console.log("numero ligne : "+ lineNumero)
+
             for(let i = 0; i < myCategories.length; i++){
                 if(typeCategorie == "compagnie"){
                     if(myCategories[i] == Compagnie){
+
+                        console.log("P : " + P)
+
                         allData[0][i] += parseInt(P) ; // = P de la catégorie
                         allData[1][i] += parseInt(SA) ; // = P de la catégorie
                         allData[2][i] += parseInt(R) ; // = P de la catégorie
@@ -172,12 +177,12 @@ function parseDataCSV(csvFile) {
         }
     });
 
-    /*
+    
     console.log(myCategories); 
     console.log(myItemNames); 
-    console.log(allData);
-    console.log(allData[]);
-    */
+    console.log(allData[0]);
+ 
+    
 
     drawChart();  // call function -> draw graphe   
     drawTooltip(); // call function -> draw tooltip
