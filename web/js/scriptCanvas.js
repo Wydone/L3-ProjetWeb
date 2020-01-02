@@ -129,7 +129,7 @@ function parseDataCSV(csvFile) {
    $.each(lines, function(lineNumero, line){
 
         if(lineNumero != 0 && line != null){
-            var items = line.split(','); 
+            var items = line.split(re); 
             
             //toutes les colonnes du CSV
             var Jour = items[0];
@@ -146,9 +146,17 @@ function parseDataCSV(csvFile) {
             var E = items[11];
 
             console.log("numero ligne : "+ lineNumero)
+        //    console.log(myCategories)
+        //    console.log(items)
 
             for(let i = 0; i < myCategories.length; i++){
+
+
                 if(typeCategorie == "compagnie"){
+
+                //    console.log(myCategories[i])
+                //    console.log("Compagnie : "+Compagnie)
+
                     if(myCategories[i] == Compagnie){
 
                         console.log("P : " + P)
