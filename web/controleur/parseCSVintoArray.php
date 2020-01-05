@@ -50,7 +50,5 @@
         }
 
     */
-    //echo "".$arrayData[0]['Jour'] ;
-
 
 ?>

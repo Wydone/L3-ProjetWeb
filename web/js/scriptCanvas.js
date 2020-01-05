@@ -1,3 +1,5 @@
+//Script qui permet la création du graphique, legende et tooltip
+
 //Var that i need in draw/load graphe + draw tooltip
 var canvas ;
 var context ;

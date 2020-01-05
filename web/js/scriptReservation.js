@@ -1,3 +1,5 @@
+//  Script qui permet de gérer la réservation des billets dans le formulaire 
+
 var allSelectName =["arrayAllTitreOption", "arrayAllDateOption", "arrayAllHoraireOption","arrayAllVillageOption" , "arrayAllLieuOption"]; //Liste des nom des select dans mon formulaire
 
 var sousFormulaireSelectedOption = new Array; 

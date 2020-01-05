@@ -1,4 +1,6 @@
 <?php
+    //controleur qui permet un affichage jour par jour en utilisant les balises dans le css.
+
     require_once('parseCSVintoArray.php');
 
     $arrayJour = array(); 
@@ -21,12 +23,9 @@
                 echo "<p> <span class=\"horaire\"><horaire>".$data['Heure']."</horaire></span>, <span class=\"lieu\"><lieu>".$data['Lieu']."</lieu></span> à <span class=\"lieu\"><lieu>".$data['Village']."</lieu></span>, <span class=\"titrespectacle\"><titrespectacle>".$data['TitreSpectacle']."</titrespectacle></span>, <span class=\"troupe\"><troupe>".$data['Compagnie']."</troupe></span> </p>" ; 
             }
 
-            //Affichage de l'auteur ????
         }
         echo "</section>";
         echo "<br>";
     }
-
-    //header('Location: programmationJourParJour.php');
 
 ?>

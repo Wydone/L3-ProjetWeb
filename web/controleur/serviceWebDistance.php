@@ -1,5 +1,6 @@
 <?php
-    
+    // Controleur qui simule le service web temps/distance qui prent 2 noms de ville en paramètre et retourne le temps de trajet entre les 2 villes.
+
     $arrayVille = array("Moulins","Monétay","Vichy","Monteignet","Veauce","Clermont-Ferrand");
     $nbVilles = sizeof($arrayVille);
     $arrayTemp = array() ; 
@@ -57,12 +58,14 @@
                     )
     ); 
 
+    //Recupération des paramètres
+
     $param1 = $_GET['VillageSource'];
     $param2 = $_GET['VillageCible'];
     $horaire = $_GET['horaire'];
 
-    //echo $param1.' , '.$param2.' , '.$horaire; 
-
+   
+    //Calcul du temps de trajet
     $distance = $arrayVilleTempsDistance[$param1][$param2][0];
     $time = $arrayVilleTempsDistance[$param1][$param2][1];
 

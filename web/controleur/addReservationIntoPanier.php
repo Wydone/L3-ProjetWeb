@@ -1,4 +1,7 @@
 <?php
+
+    //Controleur qui permet d'ajouter les reservations dans le panier
+
     session_start();
 
     $allChampsNamePOST = array(); 

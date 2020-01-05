@@ -1,3 +1,5 @@
+//Script qui permet de gérer le panier
+
 var allIndexInPanier = new Array;  
 
 var prixTotalPanier = 0; 

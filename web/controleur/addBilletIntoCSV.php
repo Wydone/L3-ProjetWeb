@@ -1,4 +1,8 @@
 <?php 
+
+    //Controleur qui permet d'ajouter les billets reservé dans le fichier CSV
+
+
     session_start();
 
 
@@ -11,6 +15,8 @@
     $update = ""; 
     $separator = ",";
     $ligneModifie = false; 
+
+
 
     foreach ($_POST as $key => $val )  {
 
@@ -28,7 +34,7 @@
         $cpt += 1; 
     }
 
-    var_dump($reservationIntoCSV); 
+    //var_dump($reservationIntoCSV); 
     
     $row = 1; 
     if($file = fopen("../data/ResultatsFestival.csv", "r")){
@@ -36,6 +42,8 @@
         while(($line = fgetcsv($file, 1024, ",")) !== FALSE){
             if($row != 1){
                foreach ($reservationIntoCSV as $element){
+
+                    //Stocker dans une varialbe l'intergralité des changements
                    if($element[0] == $line[2] && $element[1] == $line[0] && $element[2] == $line[1] && $element[3] == $line[3] && $element[4] == $line[4]){
                         echo "modification à la ligne : ".$row."\n"; 
 
@@ -68,6 +76,8 @@
         }
         fclose($file);
 
+
+        //Mettre à jour le fichier 
         if( $edit = fopen("../data/ResultatsFestival.csv", "w")){
             echo "Modification du CSV file"; 
             fwrite($edit, $update);
@@ -87,7 +97,7 @@
     $_SESSION["monPanier"] = NULL; 
    
 
-   // header('Location:../accueil.php?msgValidation='.$msg);
+    header('Location:../accueil.php?msgValidation='.$msg);
 
 
 

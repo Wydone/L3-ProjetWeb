@@ -1,6 +1,7 @@
 <?php
+    //controleur qui permet un affichage troupe par troupe 
+
     require_once('parseCSVintoArray.php');
-   // require_once('parseCSVintoArray.php');
 
     $arrayTroupe = array(); 
        
